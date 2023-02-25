@@ -1146,6 +1146,7 @@ GameObject:
   - component: {fileID: 229157985}
   - component: {fileID: 229157987}
   - component: {fileID: 229157986}
+  - component: {fileID: 229157988}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1295,6 +1296,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptText: {fileID: 1621651951}
+--- !u!114 &229157988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229157978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6bf3dbf2bae99442a362b3f54d8f0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crateAccessed: 0
+  inventoryUI: {fileID: 673704275}
+  newUI: {fileID: 0}
 --- !u!1 &339891905
 GameObject:
   m_ObjectHideFlags: 0
@@ -4841,7 +4857,7 @@ MonoBehaviour:
   inventorySpace: 24
   inventoryItems: []
   itemCount: 0
-  inventoryUI: {fileID: 5376319427119798980, guid: e521376e5dec2c64e8166d7ac1f4c32e, type: 3}
+  crateInventoryUI: {fileID: 5376319427119798980, guid: e521376e5dec2c64e8166d7ac1f4c32e, type: 3}
 --- !u!65 &1886829794
 BoxCollider:
   m_ObjectHideFlags: 0

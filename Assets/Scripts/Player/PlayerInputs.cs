@@ -12,7 +12,6 @@ public class PlayerInputs : MonoBehaviour {
     
     public GameObject inventoryUI;
 
-
     void Awake() {
         playerControls = new PlayerControls();
         movementActions = playerControls.Movement;
@@ -68,27 +67,33 @@ public class PlayerInputs : MonoBehaviour {
     }
 
     void LateUpdate() {
-        playerMotor.ProcessLook(movementActions.Look.ReadValue<Vector2>());
+        if (!inventoryUI.activeSelf)
+            playerMotor.ProcessLook(movementActions.Look.ReadValue<Vector2>());
     }
     
     public void InventoryTrigger() {
-        // Called from InputManager
         if (inventoryUI.activeSelf) {
-            inventoryUI.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            SetInventoryUnactive();
+            CrateManager crateManager = GetComponent<CrateManager>();
+            if (crateManager.crateAccessed) {
+                crateManager.SetInventoryUnactive();
+            }
         }
         else {
-            inventoryUI.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            SetInventoryActive();
         }
     }
     
-    public void InventoryTriggerFromCrate() {
+    public void SetInventoryActive() {
         inventoryUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
+    public void SetInventoryUnactive() {
+        inventoryUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    
 }

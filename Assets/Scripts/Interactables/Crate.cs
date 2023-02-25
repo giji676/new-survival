@@ -9,14 +9,19 @@ public class Crate : Interactable {
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
     public int itemCount = 0;
-    public GameObject inventoryUI;
+    public GameObject crateInventoryUI;
     
     protected override void Interact(GameObject interactingObject) {
         base.Interact(interactingObject);
-        GameObject playerUI = interactingObject.GetComponentInChildren<InventoryUI>().inventoryUIReference;
-        GameObject inventoryUIInstance = Instantiate(inventoryUI);
-        inventoryUIInstance.transform.SetParent(playerUI.transform, false);
-        interactingObject.GetComponent<PlayerInputs>().InventoryTriggerFromCrate();
+        CrateManager crateManager = interactingObject.GetComponent<CrateManager>();
+        if (!crateManager.crateAccessed) {
+            crateManager.crateAccessed = true;
+            GameObject playerUI = crateManager.inventoryUI;
+            GameObject inventoryUIInstance = Instantiate(crateInventoryUI);
+            inventoryUIInstance.transform.SetParent(playerUI.transform, false);
+            crateManager.newUI = inventoryUIInstance;
+            crateManager.SetInventoryActive();
+        }
     }
     
     public InventoryItem Add(InventoryItem newInventoryItem) {

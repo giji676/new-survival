@@ -13,15 +13,17 @@ public class Hotbar : InventoryCore {
 
     public void UseSlot(int index) {
         if (index < inventoryItems.Length) {
-            Item  item = inventoryItems[index].item;
-            if (index == activeSlot) {
-                // item.Unequip();
-                activeSlot = -1;
-            }
-            else {
-                if (item is Equipment equipment) {
-                    GameObject instantiatedObject = Instantiate(equipment.prefab, socket);
-                    activeSlot = index;
+            if (inventoryItems[index] != null) {
+                Item item = inventoryItems[index].item;
+                if (index == activeSlot) {
+                    // item.Unequip();
+                    activeSlot = -1;
+                }
+                else {
+                    if (item is Equipment equipment) {
+                        GameObject instantiatedObject = Instantiate(equipment.prefab, socket);
+                        activeSlot = index;
+                    }
                 }
             }
         }

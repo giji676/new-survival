@@ -13,10 +13,10 @@ TagManager:
   - UI
   - FPSLayer
   - Interactable
-  - 
-  - 
-  - 
-  - 
+  - Building
+  - Wall
+  - Floor
+  - BuildPreview
   - 
   - 
   - 

@@ -10,4 +10,5 @@ public class RangedWeaponData : Equipment {
     public float fireRate;
     public float reloadTime;
     public LayerMask mask;
+    public ToolType toolType;
 }

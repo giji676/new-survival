@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4880eccee8de747858e8c1cd05d70d, type: 3}
+  m_Name: Wall
+  m_EditorClassIdentifier: 
+  name: Wall
+  icon: {fileID: 21300000, guid: cdb88fdb0cf46b244a667edaff21c7df, type: 3}
+  stackable: 1
+  maxStack: 32
+  prefab: {fileID: 6409179101545019420, guid: 156d40d72e2e32d45970f5cfb79c22b7, type: 3}
+  health: 0
+  isFoundation: 0
+  colliderLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  snapPointsLayerMask:
+    serializedVersion: 2
+    m_Bits: 1536
+  buildingPrefab: {fileID: 6409179101545019420, guid: 41e947337895e0e4cb61388cc435ae40, type: 3}
+  itemPrefab: {fileID: 847538965664786732, guid: 15a0800c8920a9a40a8b553e8f72d7f8, type: 3}

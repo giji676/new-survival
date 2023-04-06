@@ -21,4 +21,8 @@ MonoBehaviour:
   maxTotalSpareAmmo: 80
   maxMagazineCapacity: 20
   fireRate: 0.11
-  reloadTime: 0
+  reloadTime: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  toolType: 2

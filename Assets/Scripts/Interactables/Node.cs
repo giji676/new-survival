@@ -5,6 +5,15 @@ using UnityEngine;
 public class Node : Interactable {
     protected override void Interact(GameObject interactingObject) {
         base.Interact(interactingObject);
-        Debug.Log("mined");
+        MeleWeapon meleWeapon = interactingObject.GetComponent<MeleWeapon>();
+        if (meleWeapon) {
+            if (meleWeapon.data.toolType == ToolType.Node) {
+                Mine("node");
+            }
+        }
+    }
+
+    public void Mine(string arg) {
+        Debug.Log(arg);
     }
 }

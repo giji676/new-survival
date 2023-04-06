@@ -9,4 +9,5 @@ public class MeleWeaponData : Equipment {
     public float totalAttackSpeed; // How long it takes for the whole attack animation to happen (the peak, and moving the weapon back to the normal position) // MUST be longer than attackSpeed
     public float range;
     public LayerMask mask;
+    public ToolType toolType;
 }

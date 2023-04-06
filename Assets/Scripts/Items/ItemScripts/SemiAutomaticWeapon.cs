@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class SemiAutomaticWeapon : HandHeld {
-    public RangedWeaponData data;    
+    public RangedWeaponData data;
     private bool isFiring = false;
     private int currentSpareAmmo;
     private int currentMangizeAmmo;
@@ -11,15 +12,26 @@ public class SemiAutomaticWeapon : HandHeld {
     private Camera cam;
     
     void Start() {
-        playerInputs.movementActions.Fire.performed += ctx => Fire();
-        playerInputs.movementActions.Reload.performed += ctx => Reload();
+        damage = data.damage;
+        playerInputs.movementActions.Fire.performed += Fire;
+        playerInputs.movementActions.Reload.performed += ReloadAction;
         currentMangizeAmmo = data.maxMagazineCapacity;
         currentSpareAmmo = data.maxTotalSpareAmmo;
         
-        cam = GetComponentInParent<PlayerMotor>().cam;
+        cam = GetComponentInParent<PlayerMotor>().cam; //UnityEngine.InputSystem.InputAction.CallbackContext
     }
 
-    void Fire() {
+    public override void Unequip() {
+        playerInputs.movementActions.Fire.performed -= Fire;
+        playerInputs.movementActions.Reload.performed -= ReloadAction;
+        StopAllCoroutines();
+    }
+
+    void ReloadAction(InputAction.CallbackContext ctx) {
+        Reload();
+    }
+
+    void Fire(InputAction.CallbackContext ctx) {
         if (currentMangizeAmmo > 0) {
             if (!isFiring) {
                 StartCoroutine(FireBullet());
@@ -29,7 +41,7 @@ public class SemiAutomaticWeapon : HandHeld {
             Reload();
         }
     }
-
+    
     IEnumerator FireBullet() {
         isFiring = true;
         
@@ -40,10 +52,7 @@ public class SemiAutomaticWeapon : HandHeld {
         if (Physics.Raycast(ray, out hitInfo, 999, data.mask)) {
             if (hitInfo.collider.GetComponent<Interactable>() != null) {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                if (interactable.gameObject.tag == "Enemy") {
-                    Dummy hitObject = hitInfo.collider.gameObject.GetComponent<Dummy>();
-                    hitObject.TakeDamage(data.damage);
-                }
+                interactable.BaseInteract(gameObject);
             }
         }
         currentMangizeAmmo --;

@@ -22,3 +22,7 @@ MonoBehaviour:
   maxMagazineCapacity: 8
   fireRate: 1
   reloadTime: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 128
+  toolType: 2

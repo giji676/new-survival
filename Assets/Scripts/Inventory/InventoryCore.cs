@@ -27,6 +27,7 @@ public class InventoryCore : MonoBehaviour {
         */
         if (newInventoryItem.item.stackable) {                                                                      // If item is stackable
             for (int i=0; i < inventoryItems.Length; i++) {                                                         // For every item in the inventory
+                if (inventoryItems[i] == null) continue;
                 if (inventoryItems[i].item.name == newInventoryItem.item.name) {                                    // If the inventory name matches item name
                     if (inventoryItems[i].currentStack < inventoryItems[i].item.maxStack) {                         // If the inventory item current stack is less than maximum stack
                         int emptyStackAvailable = newInventoryItem.item.maxStack - inventoryItems[i].currentStack;  // How much more the item can stack in the inventory
@@ -99,5 +100,12 @@ public class InventoryCore : MonoBehaviour {
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
+    }
+
+    public int GetItemIndex(InventoryItem inventoryItem) {
+        for (int i=0; i < inventoryItems.Length; i++) {
+            if (inventoryItem == inventoryItems[i]) return i;
+        }
+        return -1;
     }
 }

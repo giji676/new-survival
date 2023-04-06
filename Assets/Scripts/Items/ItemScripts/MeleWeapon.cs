@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class MeleWeapon : HandHeld {
     public MeleWeaponData data;
-
     private bool isAtacking = false;
     private bool attack = false;
     
     private Camera cam;
 
     void Start() {
-        playerInputs.movementActions.Fire.performed += ctx => AttackPerform();
-        playerInputs.movementActions.Fire.canceled += ctx => AttackCancel();
+        damage = data.damage;
+        playerInputs.movementActions.Fire.performed += AttackAction;
+        playerInputs.movementActions.Fire.canceled += AttackAction;
         
         cam = GetComponentInParent<PlayerMotor>().cam;
+    }
+
+    public override void Unequip() {
+        playerInputs.movementActions.Fire.performed -= AttackAction;
+        playerInputs.movementActions.Fire.canceled -= AttackAction;
+        StopAllCoroutines();
     }
 
     void Update() {
@@ -23,12 +30,8 @@ public class MeleWeapon : HandHeld {
         }
     }
 
-    void AttackPerform() {
-        attack = true;
-    }
-
-    void AttackCancel() {
-        attack = false;
+    void AttackAction(InputAction.CallbackContext ctx) {
+        attack = ctx.ReadValue<float>() == 1 ? true : false;
     }
 
     void Attack() {
@@ -46,10 +49,7 @@ public class MeleWeapon : HandHeld {
         if (Physics.Raycast(ray, out hitInfo, data.range, data.mask)) {
             if (hitInfo.collider.GetComponent<Interactable>() != null) {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                if (interactable.gameObject.tag == "Enemy") {
-                    Dummy hitObject = hitInfo.collider.gameObject.GetComponent<Dummy>();
-                    hitObject.TakeDamage(data.damage);
-                }
+                interactable.BaseInteract(gameObject);
             }
         }
     }

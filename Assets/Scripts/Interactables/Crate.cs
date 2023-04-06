@@ -14,6 +14,7 @@ public class Crate : Interactable {
     protected override void Interact(GameObject interactingObject) {
         base.Interact(interactingObject);
         CrateManager crateManager = interactingObject.GetComponent<CrateManager>();
+        if (!crateManager) return;
         if (!crateManager.crateAccessed) {
             crateManager.crateAccessed = true;
             GameObject playerUI = crateManager.inventoryUI;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInputs : MonoBehaviour {
-    public PlayerControls playerControls;
-    public PlayerControls.MovementActions movementActions;
-    public PlayerControls.InteractionActions interactionActions;
+    public InputActions inputActions;
+    public InputActions.MovementActions movementActions;
+    public InputActions.InteractionActions interactionActions;
     
     private PlayerMotor playerMotor;
     private Hotbar hotbar;
@@ -13,9 +13,9 @@ public class PlayerInputs : MonoBehaviour {
     public GameObject inventoryUI;
 
     void Awake() {
-        playerControls = new PlayerControls();
-        movementActions = playerControls.Movement;
-        interactionActions = playerControls.Interaction;
+        inputActions = new InputActions();
+        movementActions = inputActions.Movement;
+        interactionActions = inputActions.Interaction;
     }
 
     void Start() {

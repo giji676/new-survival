@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class AutomaticWeapon : HandHeld {
@@ -12,13 +13,21 @@ public class AutomaticWeapon : HandHeld {
     private Camera cam;
     
     void Start() {
-        playerInputs.movementActions.Fire.performed += ctx => FirePerform();
-        playerInputs.movementActions.Fire.canceled += ctx => FireCancel();
-        playerInputs.movementActions.Reload.performed += ctx => Reload();
+        damage = data.damage;
+        playerInputs.movementActions.Fire.performed += FireAction;
+        playerInputs.movementActions.Fire.canceled += FireAction;
+        playerInputs.movementActions.Reload.performed += ReloadAction;
         currentMangizeAmmo = data.maxMagazineCapacity;
         currentSpareAmmo = data.maxTotalSpareAmmo;
         
         cam = GetComponentInParent<PlayerMotor>().cam;
+    }
+
+    public override void Unequip() {
+        playerInputs.movementActions.Fire.performed -= FireAction;
+        playerInputs.movementActions.Fire.canceled -= FireAction;
+        playerInputs.movementActions.Reload.performed -= ReloadAction;
+        StopAllCoroutines();
     }
 
     void Update() {
@@ -27,12 +36,12 @@ public class AutomaticWeapon : HandHeld {
         }
     }
 
-    void FirePerform() {
-        fire = true;
+    void FireAction(InputAction.CallbackContext ctx) {
+        fire = ctx.ReadValue<float>() == 1;
     }
 
-    void FireCancel() {
-        fire = false;
+    void ReloadAction(InputAction.CallbackContext ctx) {
+        Reload();
     }
 
     void Fire() {
@@ -54,10 +63,7 @@ public class AutomaticWeapon : HandHeld {
         if (Physics.Raycast(ray, out hitInfo, 999, data.mask)) {
             if (hitInfo.collider.GetComponent<Interactable>() != null) {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                if (interactable.gameObject.tag == "Enemy") {
-                    Dummy hitObject = hitInfo.collider.gameObject.GetComponent<Dummy>();
-                    hitObject.TakeDamage(data.damage);
-                }
+                interactable.BaseInteract(gameObject);
             }
         }
         currentMangizeAmmo --;

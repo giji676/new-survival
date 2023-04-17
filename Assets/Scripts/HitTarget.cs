@@ -8,7 +8,7 @@ public class HitTarget : Interactable {
         MeleWeapon meleWeapon = interactingObject.GetComponent<MeleWeapon>();
         if (meleWeapon) {
             if (meleWeapon.data.toolType == ToolType.Node) {
-                GetComponentInParent<Node>().Mine("test");
+                GetComponentInParent<Node>().Mine(interactingObject, true);
             }
         }
     }

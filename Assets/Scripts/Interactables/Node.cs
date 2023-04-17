@@ -5,6 +5,7 @@ using UnityEngine;
 public class Node : Interactable {
     [SerializeField] private Item item;
     [SerializeField] private int baseAmount;
+    [SerializeField] private GameObject stoneDropPrefab;
 
     protected override void Interact(GameObject interactingObject) {
         base.Interact(interactingObject);
@@ -20,12 +21,22 @@ public class Node : Interactable {
         PlayerInventoryManager inventoryManager = interactingObject.GetComponentInParent<PlayerInventoryManager>();
         
         InventoryItem inventoryItem = MakeItem(fromHitTarget);
+        ItemDropTest(inventoryItem, interactingObject);
 
         InventoryItem afterTransferInventoryItem = inventoryManager.AddItem(inventoryItem);
         if (afterTransferInventoryItem.item == null) return;
 
-        Debug.Log("dropped" + afterTransferInventoryItem);
-        // Drop afterTransferInventoryItem on ground
+        // GameObject droppedPrefab = Instantiate(stoneDropPrefab, interactingObject.transform.position, Quaternion.identity);
+        // Rigidbody rb = droppedPrefab.GetComponent<Rigidbody>();
+        // droppedPrefab.GetComponent<ItemPickup>().stack = afterTransferInventoryItem.currentStack;
+        // rb.AddForce(Vector3.forward * 2f, ForceMode.Impulse);
+    }
+
+    private void ItemDropTest(InventoryItem inventoryItem, GameObject interactingObject) {
+        GameObject droppedPrefab = Instantiate(stoneDropPrefab, interactingObject.transform.position, Quaternion.identity);
+        Rigidbody rb = droppedPrefab.GetComponent<Rigidbody>();
+        droppedPrefab.GetComponent<ItemPickup>().stack = inventoryItem.currentStack;
+        rb.AddForce(Vector3.forward * 2f, ForceMode.Impulse);
     }
 
     private InventoryItem MakeItem(bool fromHitTarget) {

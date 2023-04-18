@@ -5,8 +5,8 @@ using UnityEngine;
 public class Dummy : Interactable {
     int health = 1000;
 
-    protected override void Interact(GameObject interactingObject) {
-        base.Interact(interactingObject);
+    protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
+        base.Interact(interactingObject, interactionType);
         HandHeld handHeld = interactingObject.GetComponent<HandHeld>();
         if (handHeld) TakeDamage(handHeld.damage);
     }

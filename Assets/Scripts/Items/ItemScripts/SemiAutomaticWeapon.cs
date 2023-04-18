@@ -52,7 +52,7 @@ public class SemiAutomaticWeapon : HandHeld {
         if (Physics.Raycast(ray, out hitInfo, 999, data.mask)) {
             if (hitInfo.collider.GetComponent<Interactable>() != null) {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                interactable.BaseInteract(gameObject);
+                interactable.BaseInteract(gameObject, InteractionType.Hit);
             }
         }
         currentMangizeAmmo --;

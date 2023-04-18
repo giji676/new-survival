@@ -11,8 +11,8 @@ public class Crate : Interactable {
     public int itemCount = 0;
     public GameObject crateInventoryUI;
     
-    protected override void Interact(GameObject interactingObject) {
-        base.Interact(interactingObject);
+    protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
+        base.Interact(interactingObject, interactionType);
         CrateManager crateManager = interactingObject.GetComponent<CrateManager>();
         if (!crateManager) return;
         if (!crateManager.crateAccessed) {

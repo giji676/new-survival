@@ -8,11 +8,11 @@ public abstract class Interactable : MonoBehaviour {
         return promptMessage;
     }
 
-    public void BaseInteract(GameObject interactingObject) {
-        Interact(interactingObject);
+    public void BaseInteract(GameObject interactingObject, InteractionType interactionType) {
+        Interact(interactingObject, interactionType);
     }
 
-    protected virtual void Interact(GameObject interactingObject) {
+    protected virtual void Interact(GameObject interactingObject, InteractionType interactionType) {
 
     }
 }

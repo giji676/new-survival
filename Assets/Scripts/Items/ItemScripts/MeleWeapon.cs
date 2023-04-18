@@ -49,7 +49,7 @@ public class MeleWeapon : HandHeld {
         if (Physics.Raycast(ray, out hitInfo, data.range, data.mask)) {
             if (hitInfo.collider.GetComponent<Interactable>() != null) {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                interactable.BaseInteract(gameObject);
+                interactable.BaseInteract(gameObject, InteractionType.Hit);
             }
         }
     }

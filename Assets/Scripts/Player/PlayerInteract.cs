@@ -33,9 +33,14 @@ public class PlayerInteract : MonoBehaviour {
 
                 if (playerInputs.interactionActions.Interact.triggered) {
                     // If the object is an interactable, and E is pressed (interact)
-                    interactable.BaseInteract(gameObject);
+                    interactable.BaseInteract(gameObject, InteractionType.Access);
                 }
             }
         }
     }
+}
+
+public enum InteractionType {
+    Hit,
+    Access,
 }

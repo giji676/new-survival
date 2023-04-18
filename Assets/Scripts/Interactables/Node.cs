@@ -7,8 +7,8 @@ public class Node : Interactable {
     [SerializeField] private int baseAmount;
     [SerializeField] private GameObject stoneDropPrefab;
 
-    protected override void Interact(GameObject interactingObject) {
-        base.Interact(interactingObject);
+    protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
+        base.Interact(interactingObject, interactionType);
         MeleWeapon meleWeapon = interactingObject.GetComponent<MeleWeapon>();
 
         if (!meleWeapon) return;

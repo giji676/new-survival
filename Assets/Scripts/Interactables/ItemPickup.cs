@@ -12,8 +12,8 @@ public class ItemPickup : Interactable {
         inventoryItem.currentStack = Mathf.Clamp(stack, 0, item.maxStack);
     }
 
-    protected override void Interact(GameObject interactingObject) {
-        base.Interact(interactingObject);
+    protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
+        base.Interact(interactingObject, interactionType);
 
         PickUp(interactingObject);
     }

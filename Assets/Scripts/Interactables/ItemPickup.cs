@@ -19,22 +19,14 @@ public class ItemPickup : Interactable {
     }
     
     void PickUp(GameObject interactingObject) {
-        if (TryHotbarPickUp(interactingObject).item == null) {
-            Destroy(gameObject);
-        }
-        else {
-            if (TryInventoryPickUp(interactingObject).item == null) {
-                Destroy(gameObject);
-            }
-        }
-    }
-    
-    InventoryItem TryInventoryPickUp(GameObject interactingObject) {
-        Inventory inventory = interactingObject.GetComponent<Inventory>();
-        return inventory.Add(inventoryItem);
-    }
+        PlayerInventoryManager inventoryManager = interactingObject.GetComponent<PlayerInventoryManager>();
+        InventoryItem afterTransferInventoryItem = inventoryManager.AddItem(inventoryItem);
 
-    InventoryItem TryHotbarPickUp(GameObject interactingObject) {
-        Hotbar hotbar = interactingObject.GetComponent<Hotbar>();
-        return hotbar.Add(inventoryItem);
-    }}
+        if (afterTransferInventoryItem.item == null) {
+            Destroy(gameObject);
+            return;
+        }
+
+        inventoryItem.currentStack = afterTransferInventoryItem.currentStack;
+    }
+}

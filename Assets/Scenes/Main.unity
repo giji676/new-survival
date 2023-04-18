@@ -1129,6 +1129,7 @@ GameObject:
   - component: {fileID: 229157983}
   - component: {fileID: 229157980}
   - component: {fileID: 229157981}
+  - component: {fileID: 229157989}
   - component: {fileID: 229157984}
   - component: {fileID: 229157985}
   - component: {fileID: 229157987}
@@ -1298,6 +1299,18 @@ MonoBehaviour:
   crateAccessed: 0
   inventoryUI: {fileID: 673704275}
   newUI: {fileID: 0}
+--- !u!114 &229157989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229157978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949ed4c66748764458d6643e532b2028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &230875349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6527,6 +6540,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Node
       objectReference: {fileID: 0}
+    - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 2002af09489809a4eb0ee6a64defbf77, type: 2}
+    - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
+      propertyPath: baseAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
+      propertyPath: stoneDropPrefab
+      value: 
+      objectReference: {fileID: 4949735474858969337, guid: b53e026c179ec584793da9dc156da613, type: 3}
     - target: {fileID: 6670849397801086223, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: promptMessage
       value: Mine

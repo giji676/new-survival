@@ -14,13 +14,16 @@ public class ItemPickup : Interactable {
 
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
+        Debug.Log(interactionType);
 
-        PickUp(interactingObject);
+        if (interactionType == InteractionType.Hit) return;
+
+        PickUp(interactingObject, interactionType);
     }
     
-    void PickUp(GameObject interactingObject) {
+    void PickUp(GameObject interactingObject, InteractionType interactionType) {
         PlayerInventoryManager inventoryManager = interactingObject.GetComponent<PlayerInventoryManager>();
-        InventoryItem afterTransferInventoryItem = inventoryManager.AddItem(inventoryItem);
+        InventoryItem afterTransferInventoryItem = inventoryManager.AddHotbarFirst(inventoryItem);
 
         if (afterTransferInventoryItem.item == null) {
             Destroy(gameObject);

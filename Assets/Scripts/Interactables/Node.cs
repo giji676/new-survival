@@ -13,6 +13,7 @@ public class Node : Interactable {
 
         if (!meleWeapon) return;
         if (meleWeapon.data.toolType != ToolType.Node) return;
+        if (interactionType == InteractionType.Access) return;
 
         Mine(interactingObject, false);
     }
@@ -23,7 +24,7 @@ public class Node : Interactable {
         InventoryItem inventoryItem = MakeItem(fromHitTarget);
         ItemDropTest(inventoryItem, interactingObject);
 
-        InventoryItem afterTransferInventoryItem = inventoryManager.AddItem(inventoryItem);
+        InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(inventoryItem);
         if (afterTransferInventoryItem.item == null) return;
 
         // GameObject droppedPrefab = Instantiate(stoneDropPrefab, interactingObject.transform.position, Quaternion.identity);

@@ -1223,19 +1223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySpace: 6
-  inventoryItems:
-  - item: {fileID: 0}
-    currentStack: 0
-  - item: {fileID: 0}
-    currentStack: 0
-  - item: {fileID: 0}
-    currentStack: 0
-  - item: {fileID: 0}
-    currentStack: 0
-  - item: {fileID: 0}
-    currentStack: 0
-  - item: {fileID: 0}
-    currentStack: 0
+  inventoryItems: []
   itemCount: 0
   socket: {fileID: 928706230}
   activeSlot: -1
@@ -1299,6 +1287,7 @@ MonoBehaviour:
   crateAccessed: 0
   inventoryUI: {fileID: 673704275}
   newUI: {fileID: 0}
+  crate: {fileID: 0}
 --- !u!114 &229157989
 MonoBehaviour:
   m_ObjectHideFlags: 0

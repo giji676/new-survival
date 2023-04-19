@@ -26,11 +26,13 @@ public class InventoryUI : MonoBehaviour {
     void UpdateHotbarUI() {
         for (int i = 0; i < hotbarSlots.Length; i++) {
             if (hotbar.inventoryItems[i] != null) {
-                hotbarSlots[i].ClearSlot();
-                hotbarSlots[i].AddItem(hotbar.inventoryItems[i]);
-            }
-            else {
-                hotbarSlots[i].ClearSlot();
+                if (hotbar.inventoryItems[i].item != null) {
+                    hotbarSlots[i].ClearSlot();
+                    hotbarSlots[i].AddItem(hotbar.inventoryItems[i]);
+                }
+                else {
+                    hotbarSlots[i].ClearSlot();
+                }
             }
         }
     }
@@ -38,11 +40,13 @@ public class InventoryUI : MonoBehaviour {
     void UpdateInventoryUI() {
         for (int i = 0; i < inventorySlots.Length; i++) {
             if (inventory.inventoryItems[i] != null) {
-                inventorySlots[i].ClearSlot();
-                inventorySlots[i].AddItem(inventory.inventoryItems[i]);
-            }
-            else {
-                inventorySlots[i].ClearSlot();
+                if (inventory.inventoryItems[i].item != null) {
+                    inventorySlots[i].ClearSlot();
+                    inventorySlots[i].AddItem(inventory.inventoryItems[i]);
+                }
+                else {
+                    inventorySlots[i].ClearSlot();
+                }
             }
         }
     }

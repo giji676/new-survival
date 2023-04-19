@@ -6,6 +6,7 @@ public class CrateManager : MonoBehaviour {
     public bool crateAccessed = false;
     public GameObject inventoryUI;
     public GameObject newUI;
+    public Crate crate;
 
     public void SetInventoryActive() {
         inventoryUI.SetActive(true);
@@ -15,6 +16,7 @@ public class CrateManager : MonoBehaviour {
 
     public void SetInventoryUnactive() {
         crateAccessed = false;
+        crate = null;
         Destroy(newUI);
     }
 }

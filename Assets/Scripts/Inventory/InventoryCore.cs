@@ -12,7 +12,6 @@ public class InventoryCore : MonoBehaviour {
     public int itemCount = 0;
 
     void Start() {
-        inventoryItems = new InventoryItem[inventorySpace];
     }
     
     public InventoryItem Add(InventoryItem newInventoryItem) {
@@ -27,7 +26,7 @@ public class InventoryCore : MonoBehaviour {
         */
         if (newInventoryItem.item.stackable) {                                                                      // If item is stackable
             for (int i=0; i < inventoryItems.Length; i++) {                                                         // For every item in the inventory
-                if (inventoryItems[i] == null) continue;
+                if (inventoryItems[i].item == null) continue;
                 if (inventoryItems[i].item.name == newInventoryItem.item.name) {                                    // If the inventory name matches item name
                     if (inventoryItems[i].currentStack < inventoryItems[i].item.maxStack) {                         // If the inventory item current stack is less than maximum stack
                         int emptyStackAvailable = newInventoryItem.item.maxStack - inventoryItems[i].currentStack;  // How much more the item can stack in the inventory
@@ -51,7 +50,7 @@ public class InventoryCore : MonoBehaviour {
             }
             if (newInventoryItem.currentStack <= newInventoryItem.item.maxStack) {  // If items current stack is less or equal to items max stack
                 for (int i=0; i < inventoryItems.Length; i++) {                     // For each item in inventory items
-                    if (inventoryItems[i] == null) {                                // If there is empty slot
+                    if (inventoryItems[i].item == null) {                                // If there is empty slot
                         inventoryItems[i] = newInventoryItem;                       // Add it as a new item in inventory item list
                         itemCount += 1;
                         
@@ -64,7 +63,7 @@ public class InventoryCore : MonoBehaviour {
             }
             else {                                                                          // If the current stack is more than items max stack
                 for (int i=0; i < inventoryItems.Length; i++) {                             // For each item in inventory items
-                    if (inventoryItems[i] == null) {                                        // If there is empty slot
+                    if (inventoryItems[i].item == null) {                                        // If there is empty slot
                         InventoryItem tempNewInventoryItem = newInventoryItem;              // Create a new inventory item - 
                         tempNewInventoryItem.currentStack = newInventoryItem.item.maxStack; // With max stack size
                         newInventoryItem.currentStack -= newInventoryItem.item.maxStack;    // Decrease the original inventory item with the same amount
@@ -81,8 +80,8 @@ public class InventoryCore : MonoBehaviour {
         }
 
         for (int i=0; i < inventoryItems.Length; i++) {     // For each item in inventory items
-            if (inventoryItems[i] == null) {                // If there is empty slot
-                inventoryItems[i] = newInventoryItem;
+            if (inventoryItems[i].item == null) {                // If there is empty slot
+                inventoryItems[i] = newInventoryItem; 
                 itemCount += 1;
                 
                 if (onItemChangedCallback != null)
@@ -95,7 +94,7 @@ public class InventoryCore : MonoBehaviour {
     }
 
     public void Remove(int index) {
-        inventoryItems[index] = null;
+        inventoryItems[index] = new InventoryItem(null);
         itemCount -= 1;
 
         if (onItemChangedCallback != null)

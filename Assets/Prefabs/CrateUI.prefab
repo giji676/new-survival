@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4682722919830383246}
   - component: {fileID: 1352123909086336166}
   - component: {fileID: 3405974224055347582}
+  - component: {fileID: 2980883393140396932}
   m_Layer: 0
   m_Name: CrateUI
   m_TagString: Untagged
@@ -125,6 +126,20 @@ MonoBehaviour:
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &2980883393140396932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5376319427119798980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86c7cf2b25c60e41b2ec23945261947, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crateUI: {fileID: 3524939920080517310}
+  crate: {fileID: 0}
 --- !u!1001 &433650582240303493
 PrefabInstance:
   m_ObjectHideFlags: 0

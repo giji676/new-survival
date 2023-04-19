@@ -14,7 +14,6 @@ public class ItemPickup : Interactable {
 
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
-        Debug.Log(interactionType);
 
         if (interactionType == InteractionType.Hit) return;
 

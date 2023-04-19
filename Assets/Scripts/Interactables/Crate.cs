@@ -14,15 +14,22 @@ public class Crate : Interactable {
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
         CrateManager crateManager = interactingObject.GetComponent<CrateManager>();
+
         if (!crateManager) return;
-        if (!crateManager.crateAccessed) {
-            crateManager.crateAccessed = true;
-            GameObject playerUI = crateManager.inventoryUI;
-            GameObject inventoryUIInstance = Instantiate(crateInventoryUI);
-            inventoryUIInstance.transform.SetParent(playerUI.transform, false);
-            crateManager.newUI = inventoryUIInstance;
-            crateManager.SetInventoryActive();
-        }
+        if (crateManager.crateAccessed) return;
+
+        crateManager.crateAccessed = true;
+        crateManager.crate = this;
+        GameObject playerUI = crateManager.inventoryUI;
+        GameObject inventoryUIInstance = Instantiate(crateInventoryUI);
+        inventoryUIInstance.GetComponent<CrateUI>().crate = this;
+        inventoryUIInstance.transform.SetParent(playerUI.transform, false);
+        crateManager.newUI = inventoryUIInstance;
+        crateManager.SetInventoryActive();
+    }
+
+    void Start() {
+        inventoryItems = new InventoryItem[inventorySpace];
     }
     
     public InventoryItem Add(InventoryItem newInventoryItem) {
@@ -37,6 +44,7 @@ public class Crate : Interactable {
         */
         if (newInventoryItem.item.stackable) {                                                                      // If item is stackable
             for (int i=0; i < inventoryItems.Length; i++) {                                                         // For every item in the inventory
+                if (inventoryItems[i].item == null) continue;
                 if (inventoryItems[i].item.name == newInventoryItem.item.name) {                                    // If the inventory name matches item name
                     if (inventoryItems[i].currentStack < inventoryItems[i].item.maxStack) {                         // If the inventory item current stack is less than maximum stack
                         int emptyStackAvailable = newInventoryItem.item.maxStack - inventoryItems[i].currentStack;  // How much more the item can stack in the inventory
@@ -60,7 +68,7 @@ public class Crate : Interactable {
             }
             if (newInventoryItem.currentStack <= newInventoryItem.item.maxStack) {  // If items current stack is less or equal to items max stack
                 for (int i=0; i < inventoryItems.Length; i++) {                     // For each item in inventory items
-                    if (inventoryItems[i] == null) {                                // If there is empty slot
+                    if (inventoryItems[i].item == null) {                                // If there is empty slot
                         inventoryItems[i] = newInventoryItem;                       // Add it as a new item in inventory item list
                         itemCount += 1;
                         
@@ -73,7 +81,7 @@ public class Crate : Interactable {
             }
             else {                                                                          // If the current stack is more than items max stack
                 for (int i=0; i < inventoryItems.Length; i++) {                             // For each item in inventory items
-                    if (inventoryItems[i] == null) {                                        // If there is empty slot
+                    if (inventoryItems[i].item == null) {                                        // If there is empty slot
                         InventoryItem tempNewInventoryItem = newInventoryItem;              // Create a new inventory item - 
                         tempNewInventoryItem.currentStack = newInventoryItem.item.maxStack; // With max stack size
                         newInventoryItem.currentStack -= newInventoryItem.item.maxStack;    // Decrease the original inventory item with the same amount
@@ -90,8 +98,8 @@ public class Crate : Interactable {
         }
 
         for (int i=0; i < inventoryItems.Length; i++) {     // For each item in inventory items
-            if (inventoryItems[i] == null) {                // If there is empty slot
-                inventoryItems[i] = newInventoryItem;
+            if (inventoryItems[i].item == null) {                // If there is empty slot
+                inventoryItems[i] = newInventoryItem; 
                 itemCount += 1;
                 
                 if (onItemChangedCallback != null)
@@ -104,7 +112,7 @@ public class Crate : Interactable {
     }
 
     public void Remove(int index) {
-        inventoryItems[index] = null;
+        inventoryItems[index] = new InventoryItem(null);
         itemCount -= 1;
 
         if (onItemChangedCallback != null)

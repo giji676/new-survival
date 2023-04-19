@@ -8,10 +8,12 @@ public class InventorySlot : MonoBehaviour {
     public InventoryItem inventoryItem;
     private Inventory inventory;
     private Hotbar hotbar;
+    private CrateManager crateManager;
 
     private void Start() {
         inventory = GetComponentInParent<Inventory>();
         hotbar = GetComponentInParent<Hotbar>();
+        crateManager = GetComponentInParent<CrateManager>();
     }
     
     public void AddItem(InventoryItem newInventoryItem) {
@@ -34,9 +36,18 @@ public class InventorySlot : MonoBehaviour {
 
     public void FromInventoryTransfer() {
         if (inventoryItem == null || inventoryItem.item == null) return;
-        if (hotbar.Add(inventoryItem).item == null) {
+
+        InventoryItem afterTransferInventoryItem = new InventoryItem(null);
+        
+        if (crateManager.crate) {
+            afterTransferInventoryItem = ToCrateTransfer();
+        }
+        else {
+            afterTransferInventoryItem = hotbar.Add(inventoryItem);
+        }
+        
+        if (afterTransferInventoryItem.item == null) {
             int index = inventory.GetItemIndex(inventoryItem);
-            if (index < 0) return;
             inventory.Remove(index);
             ClearSlot();
         }
@@ -44,11 +55,25 @@ public class InventorySlot : MonoBehaviour {
     
     public void FromHotbarTransfer() {
         if (inventoryItem == null || inventoryItem.item == null) return;
-        if (inventory.Add(inventoryItem).item == null) {
+        
+        InventoryItem afterTransferInventoryItem = new InventoryItem(null);
+
+        if (crateManager.crate) {
+            afterTransferInventoryItem = ToCrateTransfer();
+        }
+        else {
+            afterTransferInventoryItem = inventory.Add(inventoryItem);
+        }
+
+        if (afterTransferInventoryItem.item == null) {
             int index = hotbar.GetItemIndex(inventoryItem);
-            if (index < 0) return;
             hotbar.Remove(index);
             ClearSlot();
         }
+    }
+
+    private InventoryItem ToCrateTransfer() {
+        Crate crate = crateManager.crate.GetComponent<Crate>();
+        return crate.Add(inventoryItem);
     }
 }

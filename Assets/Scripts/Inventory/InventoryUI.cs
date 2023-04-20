@@ -34,6 +34,9 @@ public class InventoryUI : MonoBehaviour {
                     hotbarSlots[i].ClearSlot();
                 }
             }
+            else {
+                hotbarSlots[i].ClearSlot();
+            }
         }
     }
     
@@ -48,6 +51,9 @@ public class InventoryUI : MonoBehaviour {
                     inventorySlots[i].ClearSlot();
                 }
             }
-        }
+            else {
+                inventorySlots[i].ClearSlot();
+            }
+    }
     }
 }

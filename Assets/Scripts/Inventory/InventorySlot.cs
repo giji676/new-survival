@@ -18,8 +18,8 @@ public class InventorySlot : MonoBehaviour {
     
     public void AddItem(InventoryItem newInventoryItem) {
         inventoryItem = newInventoryItem;
-        icon.sprite = inventoryItem.item.icon;
         icon.enabled = true;
+        icon.sprite = inventoryItem.item.icon;
 
         if (inventoryItem.currentStack > 1)
             stackText.text = inventoryItem.currentStack.ToString();
@@ -29,10 +29,13 @@ public class InventorySlot : MonoBehaviour {
 
     public void ClearSlot() {
         inventoryItem = null;
+        stackText.text = "";
+        
         icon.sprite = null;
         icon.enabled = false;
-        stackText.text = "";
     }
+
+    // ADD HANDLER WHEN THE afterTransferInventoryItem IS NOT NULL
 
     public void FromInventoryTransfer() {
         if (inventoryItem == null || inventoryItem.item == null) return;
@@ -46,11 +49,17 @@ public class InventorySlot : MonoBehaviour {
             afterTransferInventoryItem = hotbar.Add(inventoryItem);
         }
         
+        int index = -1;
         if (afterTransferInventoryItem.item == null) {
-            int index = inventory.GetItemIndex(inventoryItem);
+            index = inventory.GetItemIndex(inventoryItem);
             inventory.Remove(index);
             ClearSlot();
+            return;
         }
+
+        index = inventory.GetItemIndex(inventoryItem);
+        inventoryItem = afterTransferInventoryItem;
+        inventory.UpdateItem(inventoryItem, index);
     }
     
     public void FromHotbarTransfer() {
@@ -65,11 +74,17 @@ public class InventorySlot : MonoBehaviour {
             afterTransferInventoryItem = inventory.Add(inventoryItem);
         }
 
+        int index = -1;
         if (afterTransferInventoryItem.item == null) {
-            int index = hotbar.GetItemIndex(inventoryItem);
+            index = hotbar.GetItemIndex(inventoryItem);
             hotbar.Remove(index);
             ClearSlot();
+            return;
         }
+
+        index = hotbar.GetItemIndex(inventoryItem);
+        inventoryItem = afterTransferInventoryItem;
+        hotbar.UpdateItem(inventoryItem, index);
     }
 
     private InventoryItem ToCrateTransfer() {

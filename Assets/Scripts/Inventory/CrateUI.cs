@@ -5,12 +5,11 @@ using UnityEngine;
 public class CrateUI : MonoBehaviour {
     // Crate
     private InventorySlot[] crateSlots;
-    public Transform crateUI;
     public Crate crate;
 
     void Start() {
         crate.onItemChangedCallback += UpdateCrateUI;
-        crateSlots = crateUI.GetComponentsInChildren<InventorySlot>();
+        crateSlots = GetComponentsInChildren<InventorySlot>();
         UpdateCrateUI();
     }
 
@@ -27,6 +26,13 @@ public class CrateUI : MonoBehaviour {
                     crateSlots[i].ClearSlot();
                 }
             }
+            else {
+                crateSlots[i].ClearSlot();
+            }
         }
+    }
+
+    public void Unsubscribe() {
+        crate.onItemChangedCallback -= UpdateCrateUI;
     }
 }

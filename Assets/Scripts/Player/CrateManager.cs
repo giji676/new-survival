@@ -17,6 +17,8 @@ public class CrateManager : MonoBehaviour {
     public void SetInventoryUnactive() {
         crateAccessed = false;
         crate = null;
+        newUI.GetComponent<CrateUI>().Unsubscribe();
         Destroy(newUI);
+        newUI = null;
     }
 }

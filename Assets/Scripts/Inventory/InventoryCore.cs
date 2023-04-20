@@ -94,6 +94,13 @@ public class InventoryCore : MonoBehaviour {
         return newInventoryItem;
     }
 
+    public void UpdateItem(InventoryItem inventoryItem, int index) {
+        inventoryItems[index] = inventoryItem;
+        
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
+    }
+
     private void FixList() {
         for (int i=0; i < inventoryItems.Length; i++) {
             if (inventoryItems[i] == null) {

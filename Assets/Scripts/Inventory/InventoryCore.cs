@@ -24,8 +24,9 @@ public class InventoryCore : MonoBehaviour {
             Add it to the inventory
         */
         if (newInventoryItem.item.stackable) {                                                                      // If item is stackable
+            // Trying to add the new inventoryItem to any already existing items which do not have full stack
             for (int i=0; i < inventoryItems.Length; i++) {                                                         // For every item in the inventory
-                if (inventoryItems[i].item == null) continue;
+                if (inventoryItems[i].item == null) continue;                                                       // If the item is not null
                 if (inventoryItems[i].item.name == newInventoryItem.item.name) {                                    // If the inventory name matches item name
                     if (inventoryItems[i].currentStack < inventoryItems[i].item.maxStack) {                         // If the inventory item current stack is less than maximum stack
                         int emptyStackAvailable = newInventoryItem.item.maxStack - inventoryItems[i].currentStack;  // How much more the item can stack in the inventory
@@ -47,10 +48,21 @@ public class InventoryCore : MonoBehaviour {
                     }
                 }
             }
-            if (newInventoryItem.currentStack <= newInventoryItem.item.maxStack) {  // If items current stack is less or equal to items max stack
-                for (int i=0; i < inventoryItems.Length; i++) {                     // For each item in inventory items
-                    if (inventoryItems[i].item == null) {                                // If there is empty slot
-                        inventoryItems[i] = newInventoryItem;                       // Add it as a new item in inventory item list
+            for (int i=0; i < inventoryItems.Length; i++) {
+                if (newInventoryItem.currentStack <= 0)
+                        return new InventoryItem(null);
+                
+                if (newInventoryItem.currentStack > newInventoryItem.item.maxStack) {
+                    if (inventoryItems[i].item == null) {
+                        InventoryItem tempNewInventoryItem = new InventoryItem(newInventoryItem.item);
+                        tempNewInventoryItem.currentStack = newInventoryItem.item.maxStack;
+                        newInventoryItem.currentStack -= tempNewInventoryItem.currentStack;
+                        inventoryItems[i] = tempNewInventoryItem;
+                    }
+                }
+                if (newInventoryItem.currentStack <= newInventoryItem.item.maxStack) {
+                    if (inventoryItems[i].item == null) {
+                        inventoryItems[i] = newInventoryItem;
                         
                         if (onItemChangedCallback != null)
                             onItemChangedCallback.Invoke();
@@ -58,26 +70,16 @@ public class InventoryCore : MonoBehaviour {
                         return new InventoryItem(null);
                     }
                 }
+
+
+                if (onItemChangedCallback != null)
+                    onItemChangedCallback.Invoke();
             }
-            else {                                                                          // If the current stack is more than items max stack
-                for (int i=0; i < inventoryItems.Length; i++) {                             // For each item in inventory items
-                    if (inventoryItems[i].item == null) {                                        // If there is empty slot
-                        InventoryItem tempNewInventoryItem = newInventoryItem;              // Create a new inventory item - 
-                        tempNewInventoryItem.currentStack = newInventoryItem.item.maxStack; // With max stack size
-                        newInventoryItem.currentStack -= newInventoryItem.item.maxStack;    // Decrease the original inventory item with the same amount
-                        inventoryItems[i] = tempNewInventoryItem;                           // Set the inventory item to the newly create invetory item
-                        
-                        if (onItemChangedCallback != null)
-                            onItemChangedCallback.Invoke();
-                        
-                        Add(newInventoryItem);                                              // Try adding the left over inventory item again to the inventory
-                    }
-                }
-            }
+            return newInventoryItem;
         }
 
         for (int i=0; i < inventoryItems.Length; i++) {     // For each item in inventory items
-            if (inventoryItems[i].item == null) {                // If there is empty slot
+            if (inventoryItems[i].item == null) {           // If there is empty slot
                 inventoryItems[i] = newInventoryItem; 
                 
                 if (onItemChangedCallback != null)

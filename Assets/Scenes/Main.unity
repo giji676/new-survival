@@ -2778,6 +2778,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: Mine
+  item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
+  baseAmount: 12
+  dropPrefab: {fileID: 4023335195466818110, guid: eb9cb6ba59f90bf448563a4a11e32955, type: 3}
 --- !u!4 &1081807786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 6d58037af810b4021ac921a71033e575, type: 3}
@@ -4024,14 +4027,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: '[E] Crate'
-  inventorySpace: 24
-  inventoryItems: []
   crateInventoryUI: {fileID: 5376319427119798980, guid: e521376e5dec2c64e8166d7ac1f4c32e, type: 3}
+  inventoryCore: {fileID: 0}
 --- !u!4 &1431886503 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 71a60c64d7c47fb41ae9f34f15bf3ccf, type: 3}
   m_PrefabInstance: {fileID: 1106179870}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1431886506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431886500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 906823fade292fb439f7db7ecead7252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySpace: 24
+  inventoryItems: []
 --- !u!1001 &1455299448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6534,6 +6550,10 @@ PrefabInstance:
       propertyPath: baseAmount
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
+      propertyPath: dropPrefab
+      value: 
+      objectReference: {fileID: 4949735474858969337, guid: b53e026c179ec584793da9dc156da613, type: 3}
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: stoneDropPrefab
       value: 

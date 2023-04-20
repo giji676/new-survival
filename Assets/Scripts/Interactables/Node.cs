@@ -5,7 +5,7 @@ using UnityEngine;
 public class Node : Interactable {
     [SerializeField] private Item item;
     [SerializeField] private int baseAmount;
-    [SerializeField] private GameObject stoneDropPrefab;
+    [SerializeField] private GameObject dropPrefab;
 
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
@@ -27,14 +27,10 @@ public class Node : Interactable {
         if (afterTransferInventoryItem.item == null) return;
 
         ItemDropTest(afterTransferInventoryItem, interactingObject);
-        // GameObject droppedPrefab = Instantiate(stoneDropPrefab, interactingObject.transform.position, Quaternion.identity);
-        // Rigidbody rb = droppedPrefab.GetComponent<Rigidbody>();
-        // droppedPrefab.GetComponent<ItemPickup>().stack = afterTransferInventoryItem.currentStack;
-        // rb.AddForce(Vector3.forward * 2f, ForceMode.Impulse);
     }
 
     private void ItemDropTest(InventoryItem inventoryItem, GameObject interactingObject) {
-        GameObject droppedPrefab = Instantiate(stoneDropPrefab, interactingObject.transform.position, Quaternion.identity);
+        GameObject droppedPrefab = Instantiate(dropPrefab, interactingObject.transform.position, Quaternion.identity);
         Rigidbody rb = droppedPrefab.GetComponent<Rigidbody>();
         droppedPrefab.GetComponent<ItemPickup>().stack = inventoryItem.currentStack;
         rb.AddForce(Vector3.forward * 2f, ForceMode.Impulse);

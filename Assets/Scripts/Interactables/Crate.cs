@@ -33,6 +33,7 @@ public class Crate : Interactable {
     }
     
     public InventoryItem Add(InventoryItem newInventoryItem) {
+        FixList();
         /*
         If item is stackable
             If item exists in the inventory:
@@ -109,6 +110,14 @@ public class Crate : Interactable {
             }
         }
         return newInventoryItem;
+    }
+    
+    private void FixList() {
+        for (int i=0; i < inventoryItems.Length; i++) {
+            if (inventoryItems[i] == null) {
+                inventoryItems[i] = new InventoryItem(null);
+            }
+        }
     }
 
     public void Remove(int index) {

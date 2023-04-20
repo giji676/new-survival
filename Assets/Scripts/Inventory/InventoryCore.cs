@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryCore : MonoBehaviour {
-    public int inventorySpace = 6;
+    public int inventorySpace;
     public InventoryItem[] inventoryItems;
     
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
     void Start() {
+        inventoryItems = new InventoryItem[inventorySpace];
     }
     
     public InventoryItem Add(InventoryItem newInventoryItem) {

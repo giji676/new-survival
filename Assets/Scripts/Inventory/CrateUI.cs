@@ -8,7 +8,7 @@ public class CrateUI : MonoBehaviour {
     public Crate crate;
 
     void Start() {
-        crate.onItemChangedCallback += UpdateCrateUI;
+        crate.inventoryCore.onItemChangedCallback += UpdateCrateUI;
         crateSlots = GetComponentsInChildren<InventorySlot>();
         UpdateCrateUI();
     }
@@ -17,10 +17,10 @@ public class CrateUI : MonoBehaviour {
         if (!crate) return;
 
         for (int i = 0; i < crateSlots.Length; i++) {
-            if (crate.inventoryItems[i] != null) {
-                if (crate.inventoryItems[i].item != null) {
+            if (crate.inventoryCore.inventoryItems[i] != null) {
+                if (crate.inventoryCore.inventoryItems[i].item != null) {
                 crateSlots[i].ClearSlot();
-                crateSlots[i].AddItem(crate.inventoryItems[i]);
+                crateSlots[i].AddItem(crate.inventoryCore.inventoryItems[i]);
                 }
                 else {
                     crateSlots[i].ClearSlot();
@@ -33,6 +33,6 @@ public class CrateUI : MonoBehaviour {
     }
 
     public void Unsubscribe() {
-        crate.onItemChangedCallback -= UpdateCrateUI;
+        crate.inventoryCore.onItemChangedCallback -= UpdateCrateUI;
     }
 }

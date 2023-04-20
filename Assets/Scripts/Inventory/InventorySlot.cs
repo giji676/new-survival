@@ -89,21 +89,21 @@ public class InventorySlot : MonoBehaviour {
 
     private InventoryItem ToCrateTransfer() {
         Crate crate = crateManager.crate.GetComponent<Crate>();
-        return crate.Add(inventoryItem);
+        return crate.inventoryCore.Add(inventoryItem);
     }
 
     public void FromCrateTransfer() {
         if (inventoryItem == null || inventoryItem.item == null) return;
         if (!crateManager.crateAccessed || crateManager.crate == null) return;
 
-        int index = crateManager.crate.GetItemIndex(inventoryItem);
-        InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(crateManager.crate.inventoryItems[index]);
+        int index = crateManager.crate.inventoryCore.GetItemIndex(inventoryItem);
+        InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(crateManager.crate.inventoryCore.inventoryItems[index]);
         if (afterTransferInventoryItem.item == null) {
-            crateManager.crate.Remove(index);
+            crateManager.crate.inventoryCore.Remove(index);
             ClearSlot();
             return;
         }
 
-        crateManager.crate.UpdateItem(afterTransferInventoryItem, index);
+        crateManager.crate.inventoryCore.UpdateItem(afterTransferInventoryItem, index);
     }
 }

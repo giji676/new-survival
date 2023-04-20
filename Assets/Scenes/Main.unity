@@ -6532,7 +6532,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 2002af09489809a4eb0ee6a64defbf77, type: 2}
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: baseAmount
-      value: 128
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: stoneDropPrefab

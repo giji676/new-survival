@@ -22,11 +22,11 @@ public class Node : Interactable {
         PlayerInventoryManager inventoryManager = interactingObject.GetComponentInParent<PlayerInventoryManager>();
         
         InventoryItem inventoryItem = MakeItem(fromHitTarget);
-        ItemDropTest(inventoryItem, interactingObject);
 
         InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(inventoryItem);
         if (afterTransferInventoryItem.item == null) return;
 
+        ItemDropTest(afterTransferInventoryItem, interactingObject);
         // GameObject droppedPrefab = Instantiate(stoneDropPrefab, interactingObject.transform.position, Quaternion.identity);
         // Rigidbody rb = droppedPrefab.GetComponent<Rigidbody>();
         // droppedPrefab.GetComponent<ItemPickup>().stack = afterTransferInventoryItem.currentStack;

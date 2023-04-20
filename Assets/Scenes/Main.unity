@@ -1224,7 +1224,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySpace: 6
   inventoryItems: []
-  itemCount: 0
   socket: {fileID: 928706230}
   activeSlot: -1
 --- !u!114 &229157985
@@ -1241,7 +1240,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventorySpace: 24
   inventoryItems: []
-  itemCount: 0
 --- !u!114 &229157986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4028,7 +4026,6 @@ MonoBehaviour:
   promptMessage: '[E] Crate'
   inventorySpace: 24
   inventoryItems: []
-  itemCount: 0
   crateInventoryUI: {fileID: 5376319427119798980, guid: e521376e5dec2c64e8166d7ac1f4c32e, type: 3}
 --- !u!4 &1431886503 stripped
 Transform:
@@ -6535,7 +6532,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 2002af09489809a4eb0ee6a64defbf77, type: 2}
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: baseAmount
-      value: 2
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: stoneDropPrefab
@@ -6564,6 +6561,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1698034528}
     m_Modifications:
+    - target: {fileID: 1113058872800647357, guid: 09f7c64764c3c31498a8c2df7bd7c9d6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3039379572098576111, guid: 09f7c64764c3c31498a8c2df7bd7c9d6, type: 3}
       propertyPath: m_Name
       value: HotbarSlot

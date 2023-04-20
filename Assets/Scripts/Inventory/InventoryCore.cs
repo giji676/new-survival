@@ -9,8 +9,6 @@ public class InventoryCore : MonoBehaviour {
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
 
-    public int itemCount = 0;
-
     void Start() {
     }
     
@@ -53,7 +51,6 @@ public class InventoryCore : MonoBehaviour {
                 for (int i=0; i < inventoryItems.Length; i++) {                     // For each item in inventory items
                     if (inventoryItems[i].item == null) {                                // If there is empty slot
                         inventoryItems[i] = newInventoryItem;                       // Add it as a new item in inventory item list
-                        itemCount += 1;
                         
                         if (onItemChangedCallback != null)
                             onItemChangedCallback.Invoke();
@@ -69,7 +66,6 @@ public class InventoryCore : MonoBehaviour {
                         tempNewInventoryItem.currentStack = newInventoryItem.item.maxStack; // With max stack size
                         newInventoryItem.currentStack -= newInventoryItem.item.maxStack;    // Decrease the original inventory item with the same amount
                         inventoryItems[i] = tempNewInventoryItem;                           // Set the inventory item to the newly create invetory item
-                        itemCount += 1;
                         
                         if (onItemChangedCallback != null)
                             onItemChangedCallback.Invoke();
@@ -83,7 +79,6 @@ public class InventoryCore : MonoBehaviour {
         for (int i=0; i < inventoryItems.Length; i++) {     // For each item in inventory items
             if (inventoryItems[i].item == null) {                // If there is empty slot
                 inventoryItems[i] = newInventoryItem; 
-                itemCount += 1;
                 
                 if (onItemChangedCallback != null)
                     onItemChangedCallback.Invoke();
@@ -111,7 +106,6 @@ public class InventoryCore : MonoBehaviour {
 
     public void Remove(int index) {
         inventoryItems[index] = new InventoryItem(null);
-        itemCount -= 1;
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();

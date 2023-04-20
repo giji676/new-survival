@@ -8,7 +8,6 @@ public class Crate : Interactable {
     
     public delegate void OnItemChanged();
     public OnItemChanged onItemChangedCallback;
-    public int itemCount = 0;
     public GameObject crateInventoryUI;
     
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
@@ -71,7 +70,6 @@ public class Crate : Interactable {
                 for (int i=0; i < inventoryItems.Length; i++) {                     // For each item in inventory items
                     if (inventoryItems[i].item == null) {                                // If there is empty slot
                         inventoryItems[i] = newInventoryItem;                       // Add it as a new item in inventory item list
-                        itemCount += 1;
                         
                         if (onItemChangedCallback != null)
                             onItemChangedCallback.Invoke();
@@ -87,7 +85,6 @@ public class Crate : Interactable {
                         tempNewInventoryItem.currentStack = newInventoryItem.item.maxStack; // With max stack size
                         newInventoryItem.currentStack -= newInventoryItem.item.maxStack;    // Decrease the original inventory item with the same amount
                         inventoryItems[i] = tempNewInventoryItem;                           // Set the inventory item to the newly create invetory item
-                        itemCount += 1;
                         
                         if (onItemChangedCallback != null)
                             onItemChangedCallback.Invoke();
@@ -100,8 +97,7 @@ public class Crate : Interactable {
 
         for (int i=0; i < inventoryItems.Length; i++) {     // For each item in inventory items
             if (inventoryItems[i].item == null) {                // If there is empty slot
-                inventoryItems[i] = newInventoryItem; 
-                itemCount += 1;
+                inventoryItems[i] = newInventoryItem;
                 
                 if (onItemChangedCallback != null)
                     onItemChangedCallback.Invoke();
@@ -110,6 +106,13 @@ public class Crate : Interactable {
             }
         }
         return newInventoryItem;
+    }
+    
+    public void UpdateItem(InventoryItem inventoryItem, int index) {
+        inventoryItems[index] = inventoryItem;
+        
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
     }
     
     private void FixList() {
@@ -122,9 +125,15 @@ public class Crate : Interactable {
 
     public void Remove(int index) {
         inventoryItems[index] = new InventoryItem(null);
-        itemCount -= 1;
 
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
+    }
+
+    public int GetItemIndex(InventoryItem inventoryItem) {
+        for (int i=0; i < inventoryItems.Length; i++) {
+            if (inventoryItem == inventoryItems[i]) return i;
+        }
+        return -1;
     }
 }

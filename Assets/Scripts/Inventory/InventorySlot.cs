@@ -8,11 +8,13 @@ public class InventorySlot : MonoBehaviour {
     public InventoryItem inventoryItem;
     private Inventory inventory;
     private Hotbar hotbar;
+    private PlayerInventoryManager inventoryManager;
     private CrateManager crateManager;
 
     private void Start() {
         inventory = GetComponentInParent<Inventory>();
         hotbar = GetComponentInParent<Hotbar>();
+        inventoryManager = GetComponentInParent<PlayerInventoryManager>();
         crateManager = GetComponentInParent<CrateManager>();
     }
     
@@ -34,8 +36,6 @@ public class InventorySlot : MonoBehaviour {
         icon.sprite = null;
         icon.enabled = false;
     }
-
-    // ADD HANDLER WHEN THE afterTransferInventoryItem IS NOT NULL
 
     public void FromInventoryTransfer() {
         if (inventoryItem == null || inventoryItem.item == null) return;
@@ -90,5 +90,20 @@ public class InventorySlot : MonoBehaviour {
     private InventoryItem ToCrateTransfer() {
         Crate crate = crateManager.crate.GetComponent<Crate>();
         return crate.Add(inventoryItem);
+    }
+
+    public void FromCrateTransfer() {
+        if (inventoryItem == null || inventoryItem.item == null) return;
+        if (!crateManager.crateAccessed || crateManager.crate == null) return;
+
+        int index = crateManager.crate.GetItemIndex(inventoryItem);
+        InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(crateManager.crate.inventoryItems[index]);
+        if (afterTransferInventoryItem.item == null) {
+            crateManager.crate.Remove(index);
+            ClearSlot();
+            return;
+        }
+
+        crateManager.crate.UpdateItem(afterTransferInventoryItem, index);
     }
 }

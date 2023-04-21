@@ -678,10 +678,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1621651950}
+  - {fileID: 1108608009}
   - {fileID: 673704276}
   - {fileID: 1698034528}
-  - {fileID: 1108608009}
-  - {fileID: 1621651950}
   m_Father: {fileID: 229157979}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2142,7 +2142,7 @@ RectTransform:
   - {fileID: 1408866290}
   - {fileID: 1478954407}
   m_Father: {fileID: 112283125}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2777,7 +2777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useEvents: 0
-  promptMessage: Mine
+  promptMessage: 
   item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
   baseAmount: 12
   dropPrefab: {fileID: 4023335195466818110, guid: eb9cb6ba59f90bf448563a4a11e32955, type: 3}
@@ -3197,7 +3197,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 112283125}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4737,7 +4737,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 112283125}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5221,7 +5221,7 @@ RectTransform:
   - {fileID: 890058124}
   - {fileID: 1044354890}
   m_Father: {fileID: 112283125}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6554,6 +6554,10 @@ PrefabInstance:
       propertyPath: dropPrefab
       value: 
       objectReference: {fileID: 4949735474858969337, guid: b53e026c179ec584793da9dc156da613, type: 3}
+    - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
+      propertyPath: promptMessage
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: stoneDropPrefab
       value: 

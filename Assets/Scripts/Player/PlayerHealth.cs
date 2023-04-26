@@ -30,8 +30,6 @@ public class PlayerHealth : MonoBehaviour {
         healthBar.fillAmount = 100;
         hungerBar.fillAmount = 100;
         hydrationBar.fillAmount = 100;
-
-        DecreaseHealth(12);
     }
 
     public void IncreaseHealth(int point) {

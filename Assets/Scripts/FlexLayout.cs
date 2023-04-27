@@ -18,28 +18,33 @@ public class FlexLayout : LayoutGroup {
     public override void CalculateLayoutInputHorizontal() {
         base.CalculateLayoutInputHorizontal();
 
-        float parentWidth = rectTransform.rect.width - spacing.x;
-        float parentHeight = rectTransform.rect.height;
+        float parentWidth = rectTransform.rect.width - padding.left - padding.right;
+        float parentHeight = rectTransform.rect.height - padding.top - padding.bottom;
 
         float cellWidth;
         float cellHeight;
 
+        float xPos = spacing.x;
+        float yPos = spacing.y;
+        float prevX = padding.left;
+        float prevY = padding.top;
+
         if (direction == Direction.Row) {
+            cellHeight = parentHeight;
+
             if (rectChildren.Count <= ratio.Count && ratio.Count > 0) {
                 float perRatio;
                 int ratioSum = GetSum(ratio);
 
                 perRatio = parentWidth / ratioSum;
-                cellHeight = parentHeight - spacing.y * 2;
 
-                float xPos = spacing.x;
-                float yPos = spacing.y;
-                float prevX = 0;
                 for (int i = 0; i < rectChildren.Count; i++) {
                     RectTransform item = rectChildren[i];
-                    cellWidth = perRatio * ratio[i] - spacing.x;
-                    xPos = prevX + spacing.x;
-                    prevX = xPos + cellWidth;
+                    
+                    cellWidth = perRatio * ratio[i] - spacing.x / 2;
+                    yPos = prevY;
+                    xPos = prevX;
+                    prevX = xPos + cellWidth + spacing.x;
 
                     SetChildAlongAxis(item, 0, xPos, cellWidth);
                     SetChildAlongAxis(item, 1, yPos, cellHeight);
@@ -48,16 +53,14 @@ public class FlexLayout : LayoutGroup {
             else {
                 int columns = rectChildren.Count;
 
-                cellWidth = parentWidth / columns - spacing.x;
-                cellHeight = parentHeight - spacing.y * 2;
+                cellWidth = parentWidth / columns - spacing.x / 2;
                 
-                float xPos = spacing.x;
-                float yPos = spacing.y;
-                float prevX = 0;
                 for (int i = 0; i < rectChildren.Count; i++) {
                     RectTransform item = rectChildren[i];
-                    xPos = prevX + spacing.x;
-                    prevX = xPos + cellWidth;
+
+                    yPos = prevY;
+                    xPos = prevX;
+                    prevX = xPos + cellWidth + spacing.x;
 
                     SetChildAlongAxis(item, 0, xPos, cellWidth);
                     SetChildAlongAxis(item, 1, yPos, cellHeight);
@@ -65,22 +68,22 @@ public class FlexLayout : LayoutGroup {
             }
         }
         
-        if (direction == Direction.Column) {
+        if (direction == Direction.Column) {            
+            cellWidth = parentWidth;
+
             if (rectChildren.Count <= ratio.Count && ratio.Count > 0) {
                 float perRatio;
                 int ratioSum = GetSum(ratio);
 
                 perRatio = parentHeight / ratioSum;
-                cellWidth = parentWidth - spacing.x * 2;
-
-                float xPos = spacing.x;
-                float yPos = spacing.y;
-                float prevY = 0;
+                
                 for (int i = 0; i < rectChildren.Count; i++) {
                     RectTransform item = rectChildren[i];
-                    cellHeight = perRatio * ratio[i] - spacing.y;
-                    yPos = prevY + spacing.y;
-                    prevY = yPos + cellHeight;
+
+                    cellHeight = perRatio * ratio[i] - spacing.y / 2;
+                    yPos = prevY;
+                    xPos = prevX;
+                    prevY = yPos + cellHeight + spacing.y;
 
                     SetChildAlongAxis(item, 0, xPos, cellWidth);
                     SetChildAlongAxis(item, 1, yPos, cellHeight);
@@ -89,16 +92,14 @@ public class FlexLayout : LayoutGroup {
             else {
                 int rows = rectChildren.Count;
 
-                cellWidth = parentWidth - spacing.x * 2;
-                cellHeight = parentHeight / rows - spacing.y;
+                cellHeight = parentHeight / rows - spacing.y / 2;
                 
-                float xPos = spacing.x;
-                float yPos = spacing.y;
-                float prevY = 0;
                 for (int i = 0; i < rectChildren.Count; i++) {
                     RectTransform item = rectChildren[i];
-                    yPos = prevY + spacing.y;
-                    prevY = yPos + cellHeight;
+                    
+                    yPos = prevY;
+                    xPos = prevX;
+                    prevY = yPos + cellHeight + spacing.y;
 
                     SetChildAlongAxis(item, 0, xPos, cellWidth);
                     SetChildAlongAxis(item, 1, yPos, cellHeight);

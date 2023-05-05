@@ -68,8 +68,8 @@ public class FlexLayout : LayoutGroup {
                 }
             }
         }
-        
-        if (direction == Direction.Column) {            
+
+        if (direction == Direction.Column) {
             cellWidth = parentWidth;
 
             if (rectChildren.Count <= ratio.Count && ratio.Count > 0) {
@@ -77,13 +77,13 @@ public class FlexLayout : LayoutGroup {
                 int ratioSum = GetSum(ratio);
 
                 perRatio = parentHeight / ratioSum;
-                
+
                 for (int i = 0; i < rectChildren.Count; i++) {
                     RectTransform item = rectChildren[i];
-
+                    
                     cellHeight = perRatio * ratio[i] - spacing.y / 2;
-                    yPos = prevY;
                     xPos = prevX;
+                    yPos = prevY;
                     prevY = yPos + cellHeight + spacing.y;
 
                     SetChildAlongAxis(item, 0, xPos, cellWidth);
@@ -97,9 +97,9 @@ public class FlexLayout : LayoutGroup {
                 
                 for (int i = 0; i < rectChildren.Count; i++) {
                     RectTransform item = rectChildren[i];
-                    
-                    yPos = prevY;
+
                     xPos = prevX;
+                    yPos = prevY;
                     prevY = yPos + cellHeight + spacing.y;
 
                     SetChildAlongAxis(item, 0, xPos, cellWidth);
@@ -127,12 +127,5 @@ public class FlexLayout : LayoutGroup {
             sum += arr[i];
         }
         return sum;
-    }
-    
-    private void Update()
-    {
-        CalculateLayoutInputVertical();
-        SetLayoutHorizontal();
-        SetLayoutVertical();
     }
 }

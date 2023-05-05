@@ -16,6 +16,13 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 2bb4e96f5d0b02c468932d665a015c54, type: 3}
   stackable: 0
   maxStack: 1
+  isCraftable: 1
+  craftingRecipe:
+  - item: {fileID: 11400000, guid: 2002af09489809a4eb0ee6a64defbf77, type: 2}
+    currentStack: 2
+  - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
+    currentStack: 3
+  returnAmount: 1
   prefab: {fileID: 5343142195016952937, guid: 2e16150d95558cd4986c1232e3e2191a, type: 3}
   damage: 23
   attackSpeed: 1

@@ -94,6 +94,9 @@ public class InventoryCore : MonoBehaviour {
 
     public void UpdateItem(InventoryItem inventoryItem, int index) {
         inventoryItems[index] = inventoryItem;
+
+        if (inventoryItem.currentStack == 0 && inventoryItem.item.stackable)
+            inventoryItems[index] = new InventoryItem(null);
         
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke();
@@ -115,8 +118,18 @@ public class InventoryCore : MonoBehaviour {
     }
 
     public int GetItemIndex(InventoryItem inventoryItem) {
+        // Returns if an exact inventoryItem match is found
         for (int i=0; i < inventoryItems.Length; i++) {
             if (inventoryItem == inventoryItems[i]) return i;
+        }
+        return -1;
+    }
+
+    public int GetOnlyItemIndex(InventoryItem inventoryItem) {
+        // Returns if an item match is found
+        for (int i=0; i < inventoryItems.Length; i++) {
+            if (inventoryItems[i] == null) continue;
+            if (inventoryItem.item == inventoryItems[i].item) return i;
         }
         return -1;
     }

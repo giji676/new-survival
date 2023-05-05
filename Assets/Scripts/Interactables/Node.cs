@@ -26,10 +26,10 @@ public class Node : Interactable {
         InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(inventoryItem);
         if (afterTransferInventoryItem.item == null) return;
 
-        ItemDropTest(afterTransferInventoryItem, interactingObject);
+        ItemDrop(afterTransferInventoryItem, interactingObject);
     }
 
-    private void ItemDropTest(InventoryItem inventoryItem, GameObject interactingObject) {
+    private void ItemDrop(InventoryItem inventoryItem, GameObject interactingObject) {
         GameObject droppedPrefab = Instantiate(dropPrefab, interactingObject.transform.position, Quaternion.identity);
         Rigidbody rb = droppedPrefab.GetComponent<Rigidbody>();
         droppedPrefab.GetComponent<ItemPickup>().stack = inventoryItem.currentStack;

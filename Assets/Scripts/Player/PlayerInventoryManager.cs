@@ -47,4 +47,22 @@ public class PlayerInventoryManager : MonoBehaviour {
     public InventoryItem AddInventoryOnly(InventoryItem newItem) {
         return inventory.Add(newItem);
     }
+
+    public InventoryItem CheckItemExists(InventoryItem inventoryItem) {
+        int index = inventory.GetOnlyItemIndex(inventoryItem);
+        if (index >= 0 && inventory.inventoryItems[index].currentStack >= inventoryItem.currentStack) {
+            return inventory.inventoryItems[index];
+        }
+        return new InventoryItem(null);
+    }
+
+    public void RemoveItem(InventoryItem inventoryItem) {
+        int index = inventory.GetOnlyItemIndex(inventoryItem);
+        if (index < 0) return;
+        if (inventory.inventoryItems[index].currentStack >= inventoryItem.currentStack) {
+            InventoryItem leftOverItem = inventory.inventoryItems[index];
+            leftOverItem.currentStack -= inventoryItem.currentStack;
+            inventory.UpdateItem(leftOverItem, index);
+        }
+    }
 }

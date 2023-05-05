@@ -16,3 +16,6 @@ MonoBehaviour:
   icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   stackable: 1
   maxStack: 64
+  isCraftable: 0
+  craftingRecipe: []
+  returnAmount: 0

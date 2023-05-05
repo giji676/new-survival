@@ -17,6 +17,7 @@ public class FlexLayout : LayoutGroup {
 
     public override void CalculateLayoutInputHorizontal() {
         base.CalculateLayoutInputHorizontal();
+        if (rectChildren == null) return;
 
         float parentWidth = rectTransform.rect.width - padding.left - padding.right;
         float parentHeight = rectTransform.rect.height - padding.top - padding.bottom;
@@ -126,5 +127,12 @@ public class FlexLayout : LayoutGroup {
             sum += arr[i];
         }
         return sum;
+    }
+    
+    private void Update()
+    {
+        CalculateLayoutInputVertical();
+        SetLayoutHorizontal();
+        SetLayoutVertical();
     }
 }

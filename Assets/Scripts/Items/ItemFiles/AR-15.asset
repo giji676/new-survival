@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: AR-15
   m_EditorClassIdentifier: 
   name: AR-15
+  description: Description
   icon: {fileID: 21300000, guid: 65f0e363b74cf5845ab8c3fbc14f39ac, type: 3}
   stackable: 0
   maxStack: 1
+  isCraftable: 0
+  craftingRecipe: []
+  returnAmount: 0
+  craftTime: 0
   prefab: {fileID: 9010977793809776974, guid: 8b5db2b6832ffec4887e5abe4e598916, type: 3}
   damage: 32
   maxTotalSpareAmmo: 80

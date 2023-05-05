@@ -6,7 +6,7 @@ public class CraftingManager : MonoBehaviour {
     private PlayerInventoryManager inventoryManager;
     public List<Item> craftableItems;
     public GameObject itemCarrierPrefab;
-    public Transform itemListTransform;
+    public RectTransform itemListTransform;
 
     private void Start() {
         inventoryManager = GetComponent<PlayerInventoryManager>();
@@ -21,7 +21,7 @@ public class CraftingManager : MonoBehaviour {
     private void UpdateCraftableItems() {
         foreach (Item item in craftableItems) {
             GameObject instantiatedCarrier = Instantiate(itemCarrierPrefab);
-            instantiatedCarrier.transform.parent = itemListTransform;
+            instantiatedCarrier.GetComponent<RectTransform>().SetParent(itemListTransform);
             instantiatedCarrier.GetComponent<ItemCarier>().item = item;
         }
     }

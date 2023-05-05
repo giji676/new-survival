@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: Ramp
   m_EditorClassIdentifier: 
   name: Ramp
+  description: A ramp for building.
   icon: {fileID: 21300000, guid: 3494dc956dfd7174abc07060940a2848, type: 3}
   stackable: 1
   maxStack: 32
+  isCraftable: 1
+  craftingRecipe:
+  - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
+    currentStack: 5
+  returnAmount: 1
+  craftTime: 10
   prefab: {fileID: 556516438852224289, guid: d84588970e4d7a3418e993a6887cf0e9, type: 3}
   health: 0
   isFoundation: 0

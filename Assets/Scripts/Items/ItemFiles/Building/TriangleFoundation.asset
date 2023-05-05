@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: TriangleFoundation
   m_EditorClassIdentifier: 
   name: Triangle Foundation
+  description: A triangle foundation for building.
   icon: {fileID: 21300000, guid: c9ed6d6ea2f9657409bfa068d4846139, type: 3}
   stackable: 1
   maxStack: 32
+  isCraftable: 1
+  craftingRecipe:
+  - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
+    currentStack: 3
+  returnAmount: 1
+  craftTime: 5
   prefab: {fileID: 1663261239739933008, guid: cd6e0d999dec4ca44a85bf3de877b9bd, type: 3}
   health: 0
   isFoundation: 1

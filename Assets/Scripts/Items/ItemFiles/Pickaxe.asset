@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   name: Pickaxe
+  description: A stone pickaxe for mining nodes.
   icon: {fileID: 21300000, guid: 626b9cddb29049e4cac50cd87b419945, type: 3}
   stackable: 0
   maxStack: 1
@@ -23,6 +24,7 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
     currentStack: 2
   returnAmount: 1
+  craftTime: 15
   prefab: {fileID: 2418924161025178630, guid: 5cc35c854af05674b9a768a637c06597, type: 3}
   damage: 20
   attackSpeed: 1

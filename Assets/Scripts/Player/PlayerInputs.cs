@@ -11,6 +11,7 @@ public class PlayerInputs : MonoBehaviour {
     private Hotbar hotbar;
     
     public GameObject inventoryUI;
+    public GameObject craftMenuUI;
 
     void Awake() {
         inputActions = new InputActions();
@@ -22,10 +23,12 @@ public class PlayerInputs : MonoBehaviour {
         playerMotor = GetComponent<PlayerMotor>();
         movementActions.Jump.performed += ctx => playerMotor.Jump();
         interactionActions.Inventory.performed += ctx => InventoryTrigger();
+        interactionActions.CraftMenu.performed += ctx => CraftMenuTrigger();
         
         hotbar = GetComponent<Hotbar>();
 
-        InventoryTrigger();
+        SetInventoryUnactive();
+        SetCraftMenuUnactive();
     }
 
     void Update() {
@@ -67,7 +70,7 @@ public class PlayerInputs : MonoBehaviour {
     }
 
     void LateUpdate() {
-        if (!inventoryUI.activeSelf)
+        if (!inventoryUI.activeSelf && !craftMenuUI.activeSelf)
             playerMotor.ProcessLook(movementActions.Look.ReadValue<Vector2>());
     }
     
@@ -80,6 +83,7 @@ public class PlayerInputs : MonoBehaviour {
             }
         }
         else {
+            SetCraftMenuUnactive();
             SetInventoryActive();
         }
     }
@@ -96,4 +100,29 @@ public class PlayerInputs : MonoBehaviour {
         Cursor.visible = false;
     }
     
+    public void CraftMenuTrigger() {
+        if (craftMenuUI.activeSelf) {
+            SetCraftMenuUnactive();
+            CrateManager crateManager = GetComponent<CrateManager>();
+            if (crateManager.crateAccessed) {
+                crateManager.SetInventoryUnactive();
+            }
+        }
+        else {
+            SetInventoryUnactive();
+            SetCraftMenuActive();
+        }
+    }
+    
+    public void SetCraftMenuActive() {
+        craftMenuUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void SetCraftMenuUnactive() {
+        craftMenuUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 }

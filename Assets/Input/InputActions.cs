@@ -438,6 +438,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CraftMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8242691-c8c5-4a09-a48b-2f9c77a3c4b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -581,6 +590,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Unequip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa8e4e25-80ed-43c6-bf82-9dbf3d8ff326"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CraftMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1188,6 +1208,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Interaction_TakeDamage = m_Interaction.FindAction("TakeDamage", throwIfNotFound: true);
         m_Interaction_Heal = m_Interaction.FindAction("Heal", throwIfNotFound: true);
         m_Interaction_Unequip = m_Interaction.FindAction("Unequip", throwIfNotFound: true);
+        m_Interaction_CraftMenu = m_Interaction.FindAction("CraftMenu", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1337,6 +1358,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Interaction_TakeDamage;
     private readonly InputAction m_Interaction_Heal;
     private readonly InputAction m_Interaction_Unequip;
+    private readonly InputAction m_Interaction_CraftMenu;
     public struct InteractionActions
     {
         private @InputActions m_Wrapper;
@@ -1354,6 +1376,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @TakeDamage => m_Wrapper.m_Interaction_TakeDamage;
         public InputAction @Heal => m_Wrapper.m_Interaction_Heal;
         public InputAction @Unequip => m_Wrapper.m_Interaction_Unequip;
+        public InputAction @CraftMenu => m_Wrapper.m_Interaction_CraftMenu;
         public InputActionMap Get() { return m_Wrapper.m_Interaction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1402,6 +1425,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Unequip.started -= m_Wrapper.m_InteractionActionsCallbackInterface.OnUnequip;
                 @Unequip.performed -= m_Wrapper.m_InteractionActionsCallbackInterface.OnUnequip;
                 @Unequip.canceled -= m_Wrapper.m_InteractionActionsCallbackInterface.OnUnequip;
+                @CraftMenu.started -= m_Wrapper.m_InteractionActionsCallbackInterface.OnCraftMenu;
+                @CraftMenu.performed -= m_Wrapper.m_InteractionActionsCallbackInterface.OnCraftMenu;
+                @CraftMenu.canceled -= m_Wrapper.m_InteractionActionsCallbackInterface.OnCraftMenu;
             }
             m_Wrapper.m_InteractionActionsCallbackInterface = instance;
             if (instance != null)
@@ -1445,6 +1471,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Unequip.started += instance.OnUnequip;
                 @Unequip.performed += instance.OnUnequip;
                 @Unequip.canceled += instance.OnUnequip;
+                @CraftMenu.started += instance.OnCraftMenu;
+                @CraftMenu.performed += instance.OnCraftMenu;
+                @CraftMenu.canceled += instance.OnCraftMenu;
             }
         }
     }
@@ -1622,6 +1651,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnTakeDamage(InputAction.CallbackContext context);
         void OnHeal(InputAction.CallbackContext context);
         void OnUnequip(InputAction.CallbackContext context);
+        void OnCraftMenu(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

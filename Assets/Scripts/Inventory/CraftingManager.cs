@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class CraftingManager : MonoBehaviour {
     private PlayerInventoryManager inventoryManager;
-    public Item testItem;
+    public List<Item> craftableItems;
+    public GameObject itemCarrierPrefab;
+    public Transform itemListTransform;
+
     private void Start() {
         inventoryManager = GetComponent<PlayerInventoryManager>();
+        UpdateCraftableItems();
     }
 
-    private void Update() {
-        TryCraftItem(testItem);
+    public void AddCraftableItem(Item item) {
+        craftableItems.Add(item);
+        UpdateCraftableItems();
+    }
+
+    private void UpdateCraftableItems() {
+        foreach (Item item in craftableItems) {
+            GameObject instantiatedCarrier = Instantiate(itemCarrierPrefab);
+            instantiatedCarrier.transform.parent = itemListTransform;
+            instantiatedCarrier.GetComponent<ItemCarier>().item = item;
+        }
     }
 
     public void TryCraftItem(Item item) {

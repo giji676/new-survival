@@ -31,18 +31,20 @@ public class FlexLayout : LayoutGroup {
         float prevY = padding.top;
 
         if (direction == Direction.Row) {
+            int columns = rectChildren.Count;
             cellHeight = parentHeight;
+            parentWidth -= spacing.x * (columns-1);
 
-            if (rectChildren.Count <= ratio.Count && ratio.Count > 0) {
+            if (columns <= ratio.Count && ratio.Count > 0) {
                 float perRatio;
                 int ratioSum = GetSum(ratio);
 
                 perRatio = parentWidth / ratioSum;
 
-                for (int i = 0; i < rectChildren.Count; i++) {
+                for (int i = 0; i < columns; i++) {
                     RectTransform item = rectChildren[i];
                     
-                    cellWidth = perRatio * ratio[i] - spacing.x / 2;
+                    cellWidth = perRatio * ratio[i];
                     yPos = prevY;
                     xPos = prevX;
                     prevX = xPos + cellWidth + spacing.x;
@@ -52,11 +54,9 @@ public class FlexLayout : LayoutGroup {
                 }
             }
             else {
-                int columns = rectChildren.Count;
-
-                cellWidth = parentWidth / columns - spacing.x / 2;
+                cellWidth = parentWidth / columns;
                 
-                for (int i = 0; i < rectChildren.Count; i++) {
+                for (int i = 0; i < columns; i++) {
                     RectTransform item = rectChildren[i];
 
                     yPos = prevY;
@@ -70,18 +70,20 @@ public class FlexLayout : LayoutGroup {
         }
 
         if (direction == Direction.Column) {
+            int rows = rectChildren.Count;
             cellWidth = parentWidth;
+            parentHeight -= spacing.y * (rows-1);
 
-            if (rectChildren.Count <= ratio.Count && ratio.Count > 0) {
+            if (rows <= ratio.Count && ratio.Count > 0) {
                 float perRatio;
                 int ratioSum = GetSum(ratio);
 
                 perRatio = parentHeight / ratioSum;
 
-                for (int i = 0; i < rectChildren.Count; i++) {
+                for (int i = 0; i < rows; i++) {
                     RectTransform item = rectChildren[i];
                     
-                    cellHeight = perRatio * ratio[i] - spacing.y / 2;
+                    cellHeight = perRatio * ratio[i];
                     xPos = prevX;
                     yPos = prevY;
                     prevY = yPos + cellHeight + spacing.y;
@@ -91,11 +93,10 @@ public class FlexLayout : LayoutGroup {
                 }
             }
             else {
-                int rows = rectChildren.Count;
 
-                cellHeight = parentHeight / rows - spacing.y / 2;
+                cellHeight = parentHeight / rows;
                 
-                for (int i = 0; i < rectChildren.Count; i++) {
+                for (int i = 0; i < rows; i++) {
                     RectTransform item = rectChildren[i];
 
                     xPos = prevX;

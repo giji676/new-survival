@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemCarier : MonoBehaviour {
+public class ItemCarrier : MonoBehaviour {
     public Item item;
 
     private Image image;
-    private CraftingManager craftingManager;
     private ItemInfoDisplay itemInfoDisplay;
+    private ItemCraftInfoManager itemCraftInfoManager;
 
     private void Start() {
-        craftingManager = GetComponentInParent<CraftingManager>();
         itemInfoDisplay = transform.root.GetComponentInChildren<ItemInfoDisplay>();
+        itemCraftInfoManager = transform.root.GetComponentInChildren<ItemCraftInfoManager>();
         image = GetComponent<Image>();
         image.sprite = item.icon;
     }
 
-    public void Craft() {
-        craftingManager.TryCraftItem(item);
+    public void DisplayInfo() {
         itemInfoDisplay.UpdateInfo(item);
+        itemCraftInfoManager.UpdateInfo(item);
     }
 }

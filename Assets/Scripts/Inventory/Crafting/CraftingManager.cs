@@ -22,7 +22,7 @@ public class CraftingManager : MonoBehaviour {
         foreach (Item item in craftableItems) {
             GameObject instantiatedCarrier = Instantiate(itemCarrierPrefab);
             instantiatedCarrier.GetComponent<RectTransform>().SetParent(itemListTransform);
-            instantiatedCarrier.GetComponent<ItemCarier>().item = item;
+            instantiatedCarrier.GetComponent<ItemCarrier>().item = item;
         }
     }
 

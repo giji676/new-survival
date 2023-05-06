@@ -27,6 +27,7 @@ public class CraftingManager : MonoBehaviour {
     }
 
     public void TryCraftItem(Item item) {
+        if (item == null) return;
         if (!item.isCraftable) return;
         if (item.craftingRecipe.Count == 0) return;
 

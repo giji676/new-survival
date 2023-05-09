@@ -26,23 +26,23 @@ public class CraftingManager : MonoBehaviour {
         }
     }
 
-    public void TryCraftItem(Item item) {
-        if (item == null) return;
-        if (!item.isCraftable) return;
-        if (item.craftingRecipe.Count == 0) return;
+    public void TryCraftItem(InventoryItem inventoryItem) {
+        if (inventoryItem == null || inventoryItem.item == null) return;
+        if (!inventoryItem.item.isCraftable) return;
+        if (inventoryItem.item.craftingRecipe.Count == 0) return;
 
-        foreach (InventoryItem inventoryItem in item.craftingRecipe) {
-            InventoryItem returned = inventoryManager.CheckItemExists(inventoryItem);
+        foreach (InventoryItem _inventoryItem in inventoryItem.item.craftingRecipe) {
+            InventoryItem returned = inventoryManager.CheckItemExists(_inventoryItem);
             if (returned.item == null)
                 return;
         }
 
-        foreach (InventoryItem inventoryItem in item.craftingRecipe) {
-            inventoryManager.RemoveItem(inventoryItem);
+        foreach (InventoryItem _inventoryItem in inventoryItem.item.craftingRecipe) {
+            inventoryManager.RemoveItem(_inventoryItem);
         }
 
-        InventoryItem craftedItem = new InventoryItem(item);
-        craftedItem.currentStack = item.returnAmount;
+        InventoryItem craftedItem = new InventoryItem(inventoryItem.item);
+        craftedItem.currentStack = inventoryItem.item.returnAmount;
         inventoryManager.AddInventoryFirst(craftedItem);
     }
 }

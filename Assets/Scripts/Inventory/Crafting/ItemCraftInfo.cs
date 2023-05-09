@@ -21,10 +21,11 @@ public class ItemCraftInfo : MonoBehaviour {
         Clear();
     }
 
-    public void UpdateInfo(InventoryItem inventoryItem) {
+    public void UpdateInfo(InventoryItem inventoryItem, int _amount) {
         Enable();
         amount.text = inventoryItem.currentStack.ToString();
         itemType.text = inventoryItem.item.name;
+        total.text = _amount.ToString();
     }
 
     public void Clear() {

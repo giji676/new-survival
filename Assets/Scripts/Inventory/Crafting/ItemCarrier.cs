@@ -7,18 +7,16 @@ public class ItemCarrier : MonoBehaviour {
     public Item item;
 
     private Image image;
-    private ItemInfoDisplay itemInfoDisplay;
-    private ItemCraftInfoManager itemCraftInfoManager;
+    private ItemCraftDisplay itemCraftDisplay;
 
     private void Start() {
-        itemInfoDisplay = transform.root.GetComponentInChildren<ItemInfoDisplay>();
-        itemCraftInfoManager = transform.root.GetComponentInChildren<ItemCraftInfoManager>();
+        itemCraftDisplay = transform.root.GetComponentInChildren<ItemCraftDisplay>();
         image = GetComponent<Image>();
         image.sprite = item.icon;
     }
 
     public void DisplayInfo() {
-        itemInfoDisplay.UpdateInfo(item);
-        itemCraftInfoManager.UpdateInfo(item);
+        itemCraftDisplay.UpdateCraftInfo(item);
+        itemCraftDisplay.UpdateItemInfo(item);
     }
 }

@@ -6,25 +6,20 @@ public class PlayerInventoryManager : MonoBehaviour {
     private Inventory inventory;
     private Hotbar hotbar;
 
+    public delegate void OnItemChanged();
+    public OnItemChanged onItemChangedCallback;
+
     private void Start() {
         inventory = GetComponent<Inventory>();
         hotbar = GetComponent<Hotbar>();
+        inventory.onItemChangedCallback += OnItemCHangedUpdate;
+        hotbar.onItemChangedCallback += OnItemCHangedUpdate;
     }
 
-    /* --- OLD --- Replaced by AddHotbarFirst and AddInventoryFirst
-    public InventoryItem AddItem(InventoryItem newItem) {
-
-        // If inventory return null -> return null
-        // If inventory return !null -> try hotbar
-        // If hotbar return null -> return null
-        // If hotbar return !null -> return item
-        
-        InventoryItem inventoryItem = inventory.Add(newItem); // Try adding to inventory first
-        if (inventoryItem.item == null) return inventoryItem; // If inventory fully accepts it return
-        
-        return hotbar.Add(inventoryItem); // Else try adding to hotbar, and return the result either way
+    public void OnItemCHangedUpdate() {
+        if (onItemChangedCallback != null)
+            onItemChangedCallback.Invoke();
     }
-    */
 
     public InventoryItem AddHotbarFirst(InventoryItem newItem) {
         InventoryItem inventoryItem = AddHotbarOnly(newItem);
@@ -64,5 +59,12 @@ public class PlayerInventoryManager : MonoBehaviour {
             leftOverItem.currentStack -= inventoryItem.currentStack;
             inventory.UpdateItem(leftOverItem, index);
         }
+    }
+
+    public int GetItemCount(Item item) {
+        int count = 0;
+        count += inventory.ItemCount(item);
+        count += hotbar.ItemCount(item);
+        return count;
     }
 }

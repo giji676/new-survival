@@ -77,9 +77,10 @@ public class ItemCraftDisplay : MonoBehaviour {
     }
 
     public void Craft() {
-        InventoryItem inventoryItem = new InventoryItem(item);
-        inventoryItem.currentStack = craftAmount;
-        craftingManager.TryCraftItem(inventoryItem);
+        for (int i = 0; i < craftAmount; i++) {
+            InventoryItem inventoryItem = new InventoryItem(item);
+            craftingManager.TryCraftItem(inventoryItem);
+        }
     }
 
     public void Increase() {
@@ -92,6 +93,18 @@ public class ItemCraftDisplay : MonoBehaviour {
     public void Decrease() {
         if (craftAmount ==  1) return;
         craftAmount--;
+        craftInput.text = craftAmount.ToString();
+        UpdateCraftInfo(item);
+    }
+
+    public void Max() {
+        List<int> craftableAmounts = new List<int>();
+        for (int i = 0; i < itemCraftInfos.Count; i++) {
+            if (itemCraftInfos[i].inventoryItem != null) {
+                craftableAmounts.Add(Int32.Parse(itemCraftInfos[i].haveText.text) / Int32.Parse(itemCraftInfos[i].amountText.text));
+            }
+        }
+        craftAmount = Mathf.Min(craftableAmounts.ToArray());
         craftInput.text = craftAmount.ToString();
         UpdateCraftInfo(item);
     }

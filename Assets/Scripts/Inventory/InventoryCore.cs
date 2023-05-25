@@ -133,4 +133,15 @@ public class InventoryCore : MonoBehaviour {
         }
         return -1;
     }
+
+    public int ItemCount(Item item) {
+        int count = 0;
+        for (int i=0; i < inventoryItems.Length; i++) {
+            if (inventoryItems[i] == null) continue;
+            if (inventoryItems[i].item == item) {
+                count += inventoryItems[i].currentStack;
+            }
+        }
+        return count;
+    }
 }

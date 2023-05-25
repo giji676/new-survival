@@ -9,31 +9,48 @@ public class ItemCraftInfo : MonoBehaviour {
     public Image itemTypeImage;
     public Image totalImage;
     public Image haveImage;
-    public TextMeshProUGUI amount;
-    public TextMeshProUGUI itemType;
-    public TextMeshProUGUI total;
-    public TextMeshProUGUI have;
+    public TextMeshProUGUI amountText;
+    public TextMeshProUGUI itemTypeText;
+    public TextMeshProUGUI totalText;
+    public TextMeshProUGUI haveText;
     public Color dissableColor;
     public Color enableColor;
+    private PlayerInventoryManager playerInventoryManager;
+    public InventoryItem inventoryItem;
+    public int amount;
 
 
     private void Start() {
+        playerInventoryManager = GetComponentInParent<PlayerInventoryManager>();
         Clear();
     }
 
-    public void UpdateInfo(InventoryItem inventoryItem, int _amount) {
+    public void UpdateInfo(InventoryItem _inventoryItem, int _amount) {
         Enable();
-        amount.text = inventoryItem.currentStack.ToString();
-        itemType.text = inventoryItem.item.name;
-        total.text = _amount.ToString();
+        inventoryItem = _inventoryItem;
+        amount = _amount;
+        amountText.text = inventoryItem.currentStack.ToString();
+        itemTypeText.text = inventoryItem.item.name;
+        totalText.text = amount.ToString();
+        UpdateHaveCount();
+
+        playerInventoryManager.onItemChangedCallback += UpdateHaveCount;
+    }
+
+    private void UpdateHaveCount() {
+        haveText.text = playerInventoryManager.GetItemCount(inventoryItem.item).ToString();
     }
 
     public void Clear() {
         Dissable();
-        amount.text = "";
-        itemType.text = "";
-        total.text = "";
-        have.text = "";
+        amountText.text = "";
+        itemTypeText.text = "";
+        totalText.text = "";
+        haveText.text = "";
+        
+        inventoryItem = null;
+        amount = 0;
+        playerInventoryManager.onItemChangedCallback -= UpdateHaveCount;
     }
 
     public void Dissable() {

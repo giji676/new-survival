@@ -77,10 +77,9 @@ public class ItemCraftDisplay : MonoBehaviour {
     }
 
     public void Craft() {
-        for (int i = 0; i < craftAmount; i++) {
-            InventoryItem inventoryItem = new InventoryItem(item);
-            craftingManager.TryCraftItem(inventoryItem);
-        }
+        InventoryItem inventoryItem = new InventoryItem(item);
+        inventoryItem.currentStack = craftAmount;
+        craftingManager.TryCraftItem(inventoryItem);
     }
 
     public void Increase() {

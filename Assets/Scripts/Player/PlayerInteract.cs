@@ -9,6 +9,8 @@ public class PlayerInteract : MonoBehaviour {
     private PlayerUI playerUI;
     private PlayerInputs playerInputs;
     private Interactable interactable;
+    private GameObject lastHoveredObject;
+    private bool outline;
 
     void Start() {
         playerUI = GetComponent<PlayerUI>();
@@ -25,10 +27,16 @@ public class PlayerInteract : MonoBehaviour {
         Debug.DrawRay(ray.origin, ray.direction * distance);
         RaycastHit hitInfo;
         
+        outline = false;
+        
         if (Physics.Raycast(ray, out hitInfo, distance, mask)) {
             // If the object hit is an Interactable
             if (hitInfo.collider.GetComponent<Interactable>() != null) {
+                lastHoveredObject = hitInfo.collider.gameObject;
+
                 interactable = hitInfo.collider.GetComponent<Interactable>();
+                interactable.BaseOutline(true);
+                outline = true;
                 playerUI.UpdateText(interactable.promptMessage);
 
                 if (playerInputs.interactionActions.Interact.triggered) {
@@ -36,6 +44,10 @@ public class PlayerInteract : MonoBehaviour {
                     interactable.BaseInteract(gameObject, InteractionType.Access);
                 }
             }
+        }
+        if (!outline && lastHoveredObject != null) {
+            lastHoveredObject.GetComponent<Interactable>().BaseOutline(false);
+            lastHoveredObject = null;
         }
     }
 }

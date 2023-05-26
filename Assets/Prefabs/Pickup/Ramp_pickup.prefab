@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3243771044310532047}
   - component: {fileID: 7597118770359466988}
   - component: {fileID: 3682704743223687867}
+  - component: {fileID: 1796313348}
   m_Layer: 7
-  m_Name: Ramp
+  m_Name: Ramp_pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,6 +64,24 @@ MonoBehaviour:
   promptMessage: '[E] Ramp'
   item: {fileID: 11400000, guid: 01643bbbfae8e0e44b7dfc2a1b170703, type: 2}
   stack: 1
+--- !u!114 &1796313348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2834644388188927213}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 3
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8776480076430296766
 GameObject:
   m_ObjectHideFlags: 0

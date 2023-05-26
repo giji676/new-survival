@@ -6,8 +6,10 @@ public class ItemPickup : Interactable {
     public Item item;
     public int stack;
     private InventoryItem inventoryItem;
+    private Outline outlineRef;
 
     void Start() {
+        outlineRef = GetComponent<Outline>();
         inventoryItem = new InventoryItem(item);
         inventoryItem.currentStack = Mathf.Clamp(stack, 0, item.maxStack);
     }
@@ -30,5 +32,12 @@ public class ItemPickup : Interactable {
         }
 
         inventoryItem.currentStack = afterTransferInventoryItem.currentStack;
+    }
+
+    protected override void Outline(bool outline)
+    {
+        base.Outline(outline);
+
+        outlineRef.enabled = outline;
     }
 }

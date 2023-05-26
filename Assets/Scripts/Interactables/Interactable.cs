@@ -15,4 +15,12 @@ public abstract class Interactable : MonoBehaviour {
     protected virtual void Interact(GameObject interactingObject, InteractionType interactionType) {
 
     }
+
+    public void BaseOutline(bool outline) {
+        Outline(outline);
+    }
+
+    protected virtual void Outline(bool outline) {
+
+    }
 }

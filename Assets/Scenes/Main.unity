@@ -11787,7 +11787,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
-  m_ReverseArrangement: 0
+  m_ReverseArrangement: 1
 --- !u!1001 &1604623138
 PrefabInstance:
   m_ObjectHideFlags: 0

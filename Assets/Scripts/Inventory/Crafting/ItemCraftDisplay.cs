@@ -83,14 +83,14 @@ public class ItemCraftDisplay : MonoBehaviour {
     }
 
     public void Increase() {
-        if (craftAmount ==  999) return;
+        if (craftAmount == 999) return;
         craftAmount++;
         craftInput.text = craftAmount.ToString();
         UpdateCraftInfo(item);
     }
 
     public void Decrease() {
-        if (craftAmount ==  1) return;
+        if (craftAmount == 1) return;
         craftAmount--;
         craftInput.text = craftAmount.ToString();
         UpdateCraftInfo(item);
@@ -100,7 +100,7 @@ public class ItemCraftDisplay : MonoBehaviour {
         List<int> craftableAmounts = new List<int>();
         for (int i = 0; i < itemCraftInfos.Count; i++) {
             if (itemCraftInfos[i].inventoryItem != null) {
-                craftableAmounts.Add(Int32.Parse(itemCraftInfos[i].haveText.text) / Int32.Parse(itemCraftInfos[i].amountText.text));
+                craftableAmounts.Add(Convert.ToInt32(itemCraftInfos[i].haveText.text) / Convert.ToInt32(itemCraftInfos[i].amountText.text));
             }
         }
         craftAmount = Mathf.Min(craftableAmounts.ToArray());

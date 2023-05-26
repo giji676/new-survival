@@ -10,20 +10,23 @@ public class CraftingItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Image icon;
     public TextMeshProUGUI amountText;
     public Image cancelBtn;
+    public CraftingManager craftingManager;
 
     public void UpdateData(InventoryItem _inventoryItem) {
         inventoryItem = _inventoryItem;
         icon.sprite = inventoryItem.item.icon;
-        amountText.text = inventoryItem.currentStack.ToString();
+        amountText.text = "x" + inventoryItem.currentStack.ToString();
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
+    public void OnPointerEnter(PointerEventData eventData) {
         cancelBtn.enabled = true;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
+    public void OnPointerExit(PointerEventData eventData) {
         cancelBtn.enabled = false;
+    }
+
+    public void Cancel() {
+        craftingManager.Cancel(inventoryItem);
     }
 }

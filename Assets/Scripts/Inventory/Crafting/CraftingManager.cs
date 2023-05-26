@@ -68,6 +68,7 @@ public class CraftingManager : MonoBehaviour {
 
         CraftingItem craftingItem = instantiatedCraftingItem.GetComponent<CraftingItem>();
         craftingItem.UpdateData(inventoryItem);
+        craftingItem.craftingManager = this;
 
         craftingQue.Add(inventoryItem);
         craftingQueItemDisplays.Add(instantiatedCraftingItem);
@@ -94,6 +95,7 @@ public class CraftingManager : MonoBehaviour {
 
     IEnumerator Craft(Item item) {
         crafting = true;
+        Debug.Log("started" + item.craftTime.ToString());
         yield return new WaitForSeconds(item.craftTime);
         
         InventoryItem craftedItem = new InventoryItem(item);
@@ -102,6 +104,25 @@ public class CraftingManager : MonoBehaviour {
 
         craftingQue[0].currentStack--;
         craftingQueItemDisplays[0].GetComponent<CraftingItem>().UpdateData(craftingQue[0]);
+        Debug.Log("finished crafting");
         crafting = false;
+    }
+
+    public void Cancel(InventoryItem inventoryItem) {
+        int index = craftingQue.IndexOf(inventoryItem);
+        if (index == 0) {
+            StopAllCoroutines();
+            crafting = false;
+        }
+        
+        foreach (InventoryItem _inventoryItem in inventoryItem.item.craftingRecipe) {
+            InventoryItem tempInventoryItem = new InventoryItem(_inventoryItem.item);
+            tempInventoryItem.currentStack = inventoryItem.currentStack * _inventoryItem.currentStack;
+            inventoryManager.AddInventoryFirst(tempInventoryItem);
+        }
+
+        craftingQue.RemoveAt(index);
+        Destroy(craftingQueItemDisplays[index]);
+        craftingQueItemDisplays.RemoveAt(index);
     }
 }

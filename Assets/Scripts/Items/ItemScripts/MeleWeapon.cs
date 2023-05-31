@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MeleWeapon : HandHeld {
     public MeleWeaponData data;
-    private bool isAtacking = false;
+    private bool isAttacking = false;
     private bool attack = false;
     
     private Camera cam;
@@ -25,7 +25,7 @@ public class MeleWeapon : HandHeld {
     }
 
     void Update() {
-        if (attack && !isAtacking) {
+        if (attack && !isAttacking) {
             Attack();
         }
     }
@@ -55,8 +55,8 @@ public class MeleWeapon : HandHeld {
     }
     
     IEnumerator FullSwingCooldown() {
-        isAtacking = true;
+        isAttacking = true;
         yield return new WaitForSeconds(data.totalAttackSpeed);
-        isAtacking = false;
+        isAttacking = false;
     }
 }

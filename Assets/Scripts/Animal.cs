@@ -11,6 +11,7 @@ public class Animal : MonoBehaviour {
     public float runningSpeed = 7f;
     public Vector2 eatingTime = new Vector2(10, 15);
     public Animator animator;
+    public float stuckDistanceThreshold = 0.5f;
 
     //Trigger collider that represents the awareness area
     SphereCollider c; 
@@ -31,7 +32,9 @@ public class Animal : MonoBehaviour {
     //How long the AI has been near the edge of NavMesh, if too long, send it to one of the random previousIdlePoints
     float timeStuck = 0;
     //Store previous idle points for reference
-    List<Vector3> previousIdlePoints = new List<Vector3>(); 
+    List<Vector3> previousIdlePoints = new List<Vector3>();
+    List<Vector3> previousPoints = new List<Vector3>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +42,7 @@ public class Animal : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = 0;
         agent.autoBraking = true;
+        agent.autoRepath = true;
 
         c = gameObject.AddComponent<SphereCollider>();
         c.isTrigger = true;
@@ -65,6 +69,7 @@ public class Animal : MonoBehaviour {
 
         if (currentState == AIState.Idle)
         {
+            previousPoints.Clear();
             if(switchAction)
             {
                 if (enemy)
@@ -93,6 +98,19 @@ public class Animal : MonoBehaviour {
         }
         else if (currentState == AIState.Walking)
         {
+            previousPoints.Add(transform.position);
+            if (previousPoints.Count > 50)
+            {
+                previousPoints.RemoveAt(0);
+            }
+
+            if (previousPoints.Count == 50 && CheckIfStuck()) {
+                if(previousIdlePoints.Count > 0)
+                {
+                    Vector3 goTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
+                    agent.SetDestination(goTo);
+                } 
+            }
             //Set NavMesh Agent Speed
             agent.speed = walkingSpeed;
 
@@ -104,6 +122,7 @@ public class Animal : MonoBehaviour {
         }
         else if (currentState == AIState.Eating)
         {
+            previousPoints.Clear();
             if (switchAction)
             {
                 //Wait for current animation to finish playing
@@ -149,6 +168,12 @@ public class Animal : MonoBehaviour {
                         //Debug.DrawLine(transform.position, closestEdge, Color.red);
                     }
 
+                    previousPoints.Add(transform.position);
+                    if (previousPoints.Count > 50)
+                    {
+                        previousPoints.RemoveAt(0);
+                    }
+
                     if (distanceToEdge < 1f)
                     {
                         if(timeStuck > 1.5f)
@@ -163,6 +188,14 @@ public class Animal : MonoBehaviour {
                         {
                             timeStuck += Time.deltaTime;
                         }
+                    }
+
+                    if (previousPoints.Count == 50 && CheckIfStuck()) {
+                        if(previousIdlePoints.Count > 0)
+                        {
+                            runTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
+                            reverseFlee = true;
+                        } 
                     }
 
                     if (distance < range * range)
@@ -252,5 +285,25 @@ public class Animal : MonoBehaviour {
         actionTimer = Random.Range(0.24f, 0.8f);
         currentState = AIState.Idle;
         SwitchAnimationState(currentState);
+    }
+
+    Vector3 GetAveragePosition() {
+        Vector3 sum = Vector3.zero;
+
+        for (int i = 0; i < previousPoints.Count; i++)
+        {
+            sum += previousPoints[i];
+        }
+
+        return sum / previousPoints.Count;
+    }
+
+    bool CheckIfStuck() {
+        if (DoneReachingDestination()) return false;
+        Vector3 averagePosition = GetAveragePosition();
+        // If the average of the previous 50 positions is less than stuckDistanceThreshold then agent's stuck
+        if (Vector3.Distance(transform.position, averagePosition) <= stuckDistanceThreshold) return true;
+
+        return false;
     }
 }

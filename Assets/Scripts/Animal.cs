@@ -10,7 +10,6 @@ public class Animal : MonoBehaviour {
     public float walkingSpeed = 3.5f;
     public float runningSpeed = 7f;
     public Vector2 eatingTime = new Vector2(10, 15);
-    public Animator animator;
     public float stuckDistanceThreshold = 0.5f;
 
     //Trigger collider that represents the awareness area
@@ -34,11 +33,13 @@ public class Animal : MonoBehaviour {
     //Store previous idle points for reference
     List<Vector3> previousIdlePoints = new List<Vector3>();
     List<Vector3> previousPoints = new List<Vector3>();
+    Animator animator;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = 0;
         agent.autoBraking = true;

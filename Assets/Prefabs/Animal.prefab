@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 6341883017445524795}
   - component: {fileID: 6341883017445524797}
   - component: {fileID: 6341883017445524792}
-  m_Layer: 0
+  - component: {fileID: 282167120}
+  m_Layer: 7
   m_Name: Animal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6341883017445524798}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.763, y: 1, z: -17.743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -101,7 +102,9 @@ MonoBehaviour:
   awarenessArea: 15
   walkingSpeed: 3.5
   runningSpeed: 7
+  eatingTime: {x: 2, y: 10}
   animator: {fileID: 0}
+  stuckDistanceThreshold: 0.05
 --- !u!195 &6341883017445524792
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -124,3 +127,18 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &282167120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341883017445524798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc17ed7351a08514cac1991dfe564153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEvents: 0
+  promptMessage: 
+  health: 2000

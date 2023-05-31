@@ -38,7 +38,7 @@ public class SemiAutomaticWeapon : HandHeld {
             }
         }
         else if (currentSpareAmmo > 0) {
-            Reload();
+            StartCoroutine(Reload());
         }
     }
     
@@ -60,12 +60,13 @@ public class SemiAutomaticWeapon : HandHeld {
         isFiring = false;
     }
 
-    void Reload() {
+    IEnumerator Reload() {
+        yield return new WaitForSeconds(data.reloadTime);
         if (currentMangizeAmmo == data.maxMagazineCapacity) {
-            return;
+            yield break;
         }
         if (currentSpareAmmo == 0) {
-            return;
+            yield break;
         }
         int emptyMagazineAmmo = data.maxMagazineCapacity - currentMangizeAmmo;
 

@@ -255,7 +255,6 @@ public class Animal : MonoBehaviour {
     }
 
     private void SwitchAnimationState(AIState state) {
-        Debug.Log(state);
         // Animation control
         if (animator) {
             animator.SetBool("isEating", state == AIState.Idle || state == AIState.Eating);

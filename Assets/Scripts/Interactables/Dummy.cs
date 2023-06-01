@@ -16,7 +16,7 @@ public class Dummy : Interactable {
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
         HandHeld handHeld = interactingObject.GetComponent<HandHeld>();
-        Debug.Log(handHeld);
+        // Debug.Log(handHeld);
         if (handHeld) TakeDamage(handHeld.damage);
     }
 
@@ -25,7 +25,7 @@ public class Dummy : Interactable {
         if (onHealthChangeCallback != null)
             onHealthChangeCallback.Invoke();
 
-        print(Health);
+        // print(Health);
         if (Health <= 0) Destroy(gameObject);
     }
 }

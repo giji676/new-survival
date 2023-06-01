@@ -461,6 +461,7 @@ MonoBehaviour:
   runningSpeed: 7
   eatingTimeRange: {x: 10, y: 15}
   stuckDistanceThreshold: 0.01
-  attackDistance: 0
   damage: 0
+  attackDistance: 0
   attackDelay: 0
+  timeToStopChasing: 60

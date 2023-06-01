@@ -445,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 1553991042791506}
   m_LocalRotation: {x: 0, y: 0.8632899, z: 0, w: 0.5047084}
   m_LocalPosition: {x: -2.99, y: -0.019, z: 0.58}
-  m_LocalScale: {x: 1.8907001, y: 1.8907, z: 1.8907001}
+  m_LocalScale: {x: 1.8907, y: 1.8907, z: 1.8907}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4309524265304134}
@@ -503,16 +503,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cd06bf805b6f843909c961bbbea55b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalType: 2
+  animalType: 3
   currentState: 0
   awarenessArea: 15
   walkingSpeed: 3.5
   runningSpeed: 7
   eatingTimeRange: {x: 10, y: 15}
   stuckDistanceThreshold: 0.01
-  attackDistance: 3
   damage: 20
+  attackDistance: 3
   attackDelay: 1.5
+  timeToStopChasing: 60
 --- !u!195 &1304908707
 NavMeshAgent:
   m_ObjectHideFlags: 0

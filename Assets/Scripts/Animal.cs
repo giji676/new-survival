@@ -4,9 +4,9 @@ using UnityEngine.AI;
 using UnityEngine;
 
 public class Animal : MonoBehaviour {
-    public enum AnimalType { Friendly, Neutral, Aggressive}
+    public enum AnimalType { Passive, FriendlyPassive, NeutralAggressive, Aggressive}
     public enum AIState { Idle, Walking, Eating, Running, Flee, Chasing, Attacking }
-    [SerializeField] private AnimalType animalType = AnimalType.Neutral;
+    [SerializeField] private AnimalType animalType = AnimalType.FriendlyPassive;
     [SerializeField] private AIState currentState = AIState.Idle;
     [SerializeField] private int awarenessArea = 15; // How far the deer should detect the enemy
     [SerializeField] private float walkingSpeed = 3.5f;
@@ -58,15 +58,16 @@ public class Animal : MonoBehaviour {
     }
 
     private void Hit() {
-        // Set NavMesh Agent Speed
-        agent.speed = runningSpeed;
-        if (enemy) {
-            agent.SetDestination(enemy.position);
-            currentState = AIState.Chasing;
-            SwitchAnimationState(currentState);
-        }
-        else {
+        if (animalType == AnimalType.Passive || animalType == AnimalType.FriendlyPassive) {
             Run(RandomNavSphere(transform.position, Random.Range(15, 40)));
+        }
+        else if (animalType == AnimalType.NeutralAggressive || animalType == AnimalType.Aggressive) {
+            if (enemy) {
+                Chase();
+            }
+            else {
+                Run(RandomNavSphere(transform.position, Random.Range(15, 40)));
+            }
         }
     }
 
@@ -84,17 +85,19 @@ public class Animal : MonoBehaviour {
 
             if(switchAction) {
                 if (enemy) {
-                    if (animalType == AnimalType.Friendly) {
-                        // Run away
+                    if (animalType == AnimalType.Passive) {
+                        // Run away if player enters awareness area
                         Run(RandomNavSphere(transform.position, Random.Range(1, 2.4f)));
                     }
-                    else if (animalType == AnimalType.Neutral) {
+                    else if (animalType == AnimalType.FriendlyPassive) {
+                        // Run away if player hits
+                    }
+                    else if (animalType == AnimalType.NeutralAggressive) {
                         // Do nothing unless player hits
 
                         // If player hits
                         // Chase the player, and attack when in range
                         // ? flee if low on health
-                        Chase();
                     }
                     else if (animalType == AnimalType.Aggressive) {
                         // Chase the player, and attack when in range

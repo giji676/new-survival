@@ -15,12 +15,12 @@ public class SnapPoint : MonoBehaviour {
     private void Update()
     {
         return;
-        Collider[] colliders = Physics.OverlapBox(transform.position, size / 2, transform.rotation, buildingLayerMask);
+        // Collider[] colliders = Physics.OverlapBox(transform.position, size / 2, transform.rotation, buildingLayerMask);
 
-        foreach (Collider collider in colliders) {
-            if (collider.gameObject != parent) {
-                gameObject.GetComponent<Collider>().enabled = false;
-            }
-        }
+        // foreach (Collider collider in colliders) {
+        //     if (collider.gameObject != parent) {
+        //         gameObject.GetComponent<Collider>().enabled = false;
+        //     }
+        // }
     }
 }

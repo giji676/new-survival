@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Dummy : Interactable {
-    [SerializeField] private int health = 100;
+    [SerializeField] private int maxHealth = 100;
+    private int Health { get; set; }
+
+    public delegate void OnHealthChange();
+    public OnHealthChange onHealthChangeCallback;
+
+    private void Start() {
+        Health = maxHealth;
+    }
 
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
@@ -13,8 +21,11 @@ public class Dummy : Interactable {
     }
 
     public void TakeDamage(int damage) {
-        health -= damage;
-        print(health);
-        if (health <= 0) Destroy(gameObject);
+        Health -= damage;
+        if (onHealthChangeCallback != null)
+            onHealthChangeCallback.Invoke();
+
+        print(Health);
+        if (Health <= 0) Destroy(gameObject);
     }
 }

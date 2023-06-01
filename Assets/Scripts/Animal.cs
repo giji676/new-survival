@@ -4,13 +4,22 @@ using UnityEngine.AI;
 using UnityEngine;
 
 public class Animal : MonoBehaviour {
-    public enum AIState { Idle, Walking, Eating, Running }
+    public enum AnimalType { Friendly, Neutral, Aggressive}
+    public enum AIState { Idle, Walking, Eating, Running, Chasing, Attacking }
+    [SerializeField] private AnimalType animalType = AnimalType.Neutral;
     [SerializeField] private AIState currentState = AIState.Idle;
     [SerializeField] private int awarenessArea = 15; // How far the deer should detect the enemy
     [SerializeField] private float walkingSpeed = 3.5f;
     [SerializeField] private float runningSpeed = 7f;
-    [SerializeField] private Vector2 eatingTime = new Vector2(10, 15);
+    [SerializeField] private Vector2 eatingTimeRange = new Vector2(10, 15);
     [SerializeField] private float stuckDistanceThreshold = 0.01f; // Distance used to check if agent has moved or is stuck
+
+    [Header("Neutral and Aggressive only")]
+    [SerializeField] private float attackDistance = 5f; // Distance for agent to start attacking enemy
+    [SerializeField] private int damage;
+    [SerializeField] private float attackDelay;
+    private bool isAttacking = false;
+
     private SphereCollider awarenessCollider; // Trigger collider that represents the awareness area
     private NavMeshAgent agent;
     private Animator animator;
@@ -60,14 +69,33 @@ public class Animal : MonoBehaviour {
 
             if(switchAction) {
                 if (enemy) {
-                    // Run away
-                    agent.SetDestination(RandomNavSphere(transform.position, Random.Range(1, 2.4f)));
-                    currentState = AIState.Running;
-                    SwitchAnimationState(currentState);
+                    if (animalType == AnimalType.Friendly) {
+                        // Run away
+                        agent.SetDestination(RandomNavSphere(transform.position, Random.Range(1, 2.4f)));
+                        currentState = AIState.Running;
+                        SwitchAnimationState(currentState);
+                    }
+                    else if (animalType == AnimalType.Neutral) {
+                        // Do nothing unless player hits
+
+                        // If player hits
+                        // Chase the player, and attack when in range
+                        // ? flee if low on health
+                        agent.SetDestination(enemy.position);
+                        currentState = AIState.Chasing;
+                        SwitchAnimationState(currentState);
+                    }
+                    else if (animalType == AnimalType.Aggressive) {
+                        // Chase the player, and attack when in range
+                        // ? flee if low on health
+                        agent.SetDestination(enemy.position);
+                        currentState = AIState.Chasing;
+                        SwitchAnimationState(currentState);
+                    }
                 }
                 else {
                     // No enemies nearby, start eating
-                    actionTimer = Random.Range(eatingTime.x, eatingTime.y);
+                    actionTimer = Random.Range(eatingTimeRange.x, eatingTimeRange.y);
 
                     currentState = AIState.Eating;
                     SwitchAnimationState(currentState);
@@ -188,8 +216,46 @@ public class Animal : MonoBehaviour {
                 }
             }
         }
+        else if (currentState == AIState.Chasing) {
+            // Set NavMesh Agent Speed
+            agent.speed = runningSpeed;
 
+            // Chase
+            if (enemy) {
+                agent.SetDestination(enemy.position);
+
+                if (agent.remainingDistance <= attackDistance) {
+                    agent.SetDestination(agent.transform.position);
+                    currentState = AIState.Attacking;
+                    SwitchAnimationState(currentState);
+                }
+            }
+        }
+        else if (currentState == AIState.Attacking) {
+            if (enemy) {
+                if (Vector3.Distance(transform.position, enemy.position) - 0.3f >= attackDistance) {
+                    agent.SetDestination(enemy.position);
+                    currentState = AIState.Chasing;
+                    SwitchAnimationState(currentState);
+                    StopAllCoroutines();
+                    isAttacking = false;
+                }
+                else {
+                    PlayerHealth playerHealth = enemy.gameObject.GetComponent<PlayerHealth>();
+                    if (playerHealth && !isAttacking) {
+                        StartCoroutine(Attack(playerHealth));
+                    }
+                }
+            }
+        }
         switchAction = false;
+    }
+
+    IEnumerator Attack(PlayerHealth playerHealth) {
+        isAttacking = true;
+        yield return new WaitForSeconds(attackDelay);
+        playerHealth.DecreaseHealth(damage);
+        isAttacking = false;
     }
 
     private bool DoneReachingDestination() {
@@ -209,7 +275,7 @@ public class Animal : MonoBehaviour {
         // Animation control
         if (animator) {
             animator.SetBool("isEating", state == AIState.Eating);
-            animator.SetBool("isRunning", state == AIState.Running);
+            animator.SetBool("isRunning", state == AIState.Running || state == AIState.Chasing);
             animator.SetBool("isWalking", state == AIState.Walking);
         }
     }

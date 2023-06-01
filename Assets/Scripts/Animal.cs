@@ -54,9 +54,7 @@ public class Animal : MonoBehaviour {
         GetComponent<Dummy>().onHealthChangeCallback += Hit;
 
         // Initialize the AI state
-        currentState = AIState.Idle;
-        actionTimer = Random.Range(0.1f, 2.0f);
-        SwitchAnimationState(currentState);
+        Idle();
     }
 
     private void Hit() {
@@ -68,9 +66,7 @@ public class Animal : MonoBehaviour {
             SwitchAnimationState(currentState);
         }
         else {
-            agent.destination = RandomNavSphere(transform.position, Random.Range(15, 40));
-            currentState = AIState.Running;
-            SwitchAnimationState(AIState.Running);
+            Run(RandomNavSphere(transform.position, Random.Range(15, 40)));
         }
     }
 
@@ -90,9 +86,7 @@ public class Animal : MonoBehaviour {
                 if (enemy) {
                     if (animalType == AnimalType.Friendly) {
                         // Run away
-                        agent.SetDestination(RandomNavSphere(transform.position, Random.Range(1, 2.4f)));
-                        currentState = AIState.Running;
-                        SwitchAnimationState(currentState);
+                        Run(RandomNavSphere(transform.position, Random.Range(1, 2.4f)));
                     }
                     else if (animalType == AnimalType.Neutral) {
                         // Do nothing unless player hits
@@ -100,24 +94,17 @@ public class Animal : MonoBehaviour {
                         // If player hits
                         // Chase the player, and attack when in range
                         // ? flee if low on health
-                        agent.SetDestination(enemy.position);
-                        currentState = AIState.Chasing;
-                        SwitchAnimationState(currentState);
+                        Chase();
                     }
                     else if (animalType == AnimalType.Aggressive) {
                         // Chase the player, and attack when in range
                         // ? flee if low on health
-                        agent.SetDestination(enemy.position);
-                        currentState = AIState.Chasing;
-                        SwitchAnimationState(currentState);
+                        Chase();
                     }
                 }
                 else {
                     // No enemies nearby, start eating
-                    actionTimer = Random.Range(eatingTimeRange.x, eatingTimeRange.y);
-
-                    currentState = AIState.Eating;
-                    SwitchAnimationState(currentState);
+                    Eat();
 
                     // Keep last 5 Idle positions for future reference
                     previousIdlePoints.Add(transform.position);
@@ -128,23 +115,12 @@ public class Animal : MonoBehaviour {
             }
         }
         else if (currentState == AIState.Walking) {
-            previousPoints.Add(transform.position);
-            if (previousPoints.Count > 50) {
-                previousPoints.RemoveAt(0);
-            }
-
-            if (previousPoints.Count == 50 && CheckIfStuck()) {
-                if(previousIdlePoints.Count > 0) {
-                    Vector3 goTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
-                    agent.SetDestination(goTo);
-                } 
-            }
-            // Set NavMesh Agent Speed
-            agent.speed = walkingSpeed;
+            AddPrevPosition();
+            DealWithStuck();
 
             // Check if we've reached the destination
             if (DoneReachingDestination()) {
-                currentState = AIState.Idle;
+                Idle();
             }
         }
         else if (currentState == AIState.Eating) {
@@ -154,16 +130,11 @@ public class Animal : MonoBehaviour {
                 // Wait for current animation to finish playing
                 if(!animator || animator.GetCurrentAnimatorStateInfo(0).normalizedTime - Mathf.Floor(animator.GetCurrentAnimatorStateInfo(0).normalizedTime) > 0.99f) {
                     // Walk to another random destination
-                    agent.destination = RandomNavSphere(transform.position, Random.Range(5, 10));
-                    currentState = AIState.Walking;
-                    SwitchAnimationState(currentState);
+                    Walk(RandomNavSphere(transform.position, Random.Range(5, 10)));
                 }
             }
         }
         else if (currentState == AIState.Running) {
-            // Set NavMesh Agent Speed
-            agent.speed = runningSpeed;
-
             // Run away
             if (enemy) {
                 if (reverseFlee) {
@@ -178,40 +149,15 @@ public class Animal : MonoBehaviour {
                     Vector3 runTo = transform.position + ((transform.position - enemy.position) * multiplier);
                     distance = (transform.position - enemy.position).sqrMagnitude;
 
-                    // Find the closest NavMesh edge
-                    NavMeshHit hit;
-                    if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.AllAreas)) {
-                        closestEdge = hit.position;
-                        distanceToEdge = hit.distance;
-                        // Debug.DrawLine(transform.position, closestEdge, Color.red);
-                    }
+                    if (CheckIfStuckOnEdge())
+                        runTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
+                    
 
-                    previousPoints.Add(transform.position);
-                    if (previousPoints.Count > 50) {
-                        previousPoints.RemoveAt(0);
-                    }
-
-                    if (distanceToEdge < 1f) {
-                        if(timeStuck > 1.5f) {
-                            if(previousIdlePoints.Count > 0) {
-                                runTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
-                                reverseFlee = true;
-                            } 
-                        }
-                        else {
-                            timeStuck += Time.deltaTime;
-                        }
-                    }
-
-                    if (previousPoints.Count == 50 && CheckIfStuck()) {
-                        if(previousIdlePoints.Count > 0) {
-                            runTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
-                            reverseFlee = true;
-                        } 
-                    }
+                    AddPrevPosition();
+                    DealWithStuck();
 
                     if (distance < range * range) {
-                        agent.SetDestination(runTo);
+                        Run(runTo);
                     }
                     else {
                         enemy = null;
@@ -219,7 +165,7 @@ public class Animal : MonoBehaviour {
                 }
                 
                 // Temporarily switch to Idle if the Agent stopped
-                if(agent.velocity.sqrMagnitude < 0.1f * 0.1f) {
+                if(agent.velocity.sqrMagnitude < 0.1f) {
                     SwitchAnimationState(AIState.Idle);
                 }
                 else {
@@ -229,9 +175,7 @@ public class Animal : MonoBehaviour {
             else {
                 // Check if we've reached the destination then stop running
                 if (DoneReachingDestination()) {
-                    actionTimer = Random.Range(1.4f, 3.4f);
-                    currentState = AIState.Eating;
-                    SwitchAnimationState(AIState.Idle);
+                    Eat();
                 }
             }
         }
@@ -239,82 +183,50 @@ public class Animal : MonoBehaviour {
             // Set NavMesh Agent Speed
             agent.speed = runningSpeed;
             
-            previousPoints.Add(transform.position);
-            if (previousPoints.Count > 50) {
-                previousPoints.RemoveAt(0);
-            }
+            AddPrevPosition();
+            DealWithStuck();
 
-            if (previousPoints.Count == 50 && CheckIfStuck()) {
-                if(previousIdlePoints.Count > 0) {
-                    Vector3 goTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
-                    agent.SetDestination(goTo);
-                } 
-            }
-
-            currentState = AIState.Running;
-            SwitchAnimationState(AIState.Running);
             agent.destination = RandomNavSphere(transform.position, Random.Range(5, 10));
+            currentState = AIState.Running;
+            SwitchAnimationState(currentState);
 
         }
         else if (currentState == AIState.Chasing) {
-            // Set NavMesh Agent Speed
-            agent.speed = runningSpeed;
-
             // Chase
             if (enemy) {
                 timeToStopChasingCurrent += Time.deltaTime;
                 if (timeToStopChasingCurrent >= timeToStopChasing) {
                     timeToStopChasingCurrent = 0f;
                     // Walk to another random destination
-                    agent.destination = RandomNavSphere(transform.position, Random.Range(5, 10));
-                    currentState = AIState.Walking;
-                    SwitchAnimationState(currentState);
+                    Walk(RandomNavSphere(transform.position, Random.Range(5, 10)));
                 }
+                agent.speed = runningSpeed;
                 agent.SetDestination(enemy.position);
 
+                if(agent.velocity.sqrMagnitude < 0.1f) {
+                    SwitchAnimationState(AIState.Idle);
+                }
+                else {
+                    SwitchAnimationState(AIState.Chasing);
+                }
                 
-                previousPoints.Add(transform.position);
-                if (previousPoints.Count > 50) {
-                    previousPoints.RemoveAt(0);
-                }
-
-                if (previousPoints.Count == 50 && CheckIfStuck()) {
-                    if(previousIdlePoints.Count > 0) {
-                        Vector3 goTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
-                        agent.SetDestination(goTo);
-                    } 
-                }
+                // AddPrevPosition();
+                // DealWithStuck();
 
                 if (agent.remainingDistance <= attackDistance) {
                     agent.SetDestination(agent.transform.position);
                     currentState = AIState.Attacking;
-                    SwitchAnimationState(currentState);
                 }
             }
             else {
                 timeToStopChasingCurrent = 0f;
                 // Walk to another random destination
-                agent.destination = RandomNavSphere(transform.position, Random.Range(5, 10));
-                currentState = AIState.Walking;
-                SwitchAnimationState(currentState);
+                Walk(RandomNavSphere(transform.position, Random.Range(5, 10)));
             }
         }
         else if (currentState == AIState.Attacking) {
-            if (enemy) {
-                if (Vector3.Distance(transform.position, enemy.position) - 0.3f >= attackDistance) {
-                    agent.SetDestination(enemy.position);
-                    currentState = AIState.Chasing;
-                    SwitchAnimationState(currentState);
-                    StopAllCoroutines();
-                    isAttacking = false;
-                }
-                else {
-                    PlayerHealth playerHealth = enemy.gameObject.GetComponent<PlayerHealth>();
-                    if (playerHealth && !isAttacking) {
-                        StartCoroutine(Attack(playerHealth));
-                    }
-                }
-            }
+            FAttack();
+            timeToStopChasingCurrent = 0f;
         }
         switchAction = false;
     }
@@ -340,9 +252,10 @@ public class Animal : MonoBehaviour {
     }
 
     private void SwitchAnimationState(AIState state) {
+        Debug.Log(state);
         // Animation control
         if (animator) {
-            animator.SetBool("isEating", state == AIState.Eating);
+            animator.SetBool("isEating", state == AIState.Idle || state == AIState.Eating);
             animator.SetBool("isRunning", state == AIState.Running || state == AIState.Chasing);
             animator.SetBool("isWalking", state == AIState.Walking);
         }
@@ -371,6 +284,95 @@ public class Animal : MonoBehaviour {
         SwitchAnimationState(currentState);
     }
 
+    private void Idle() {
+        // Debug.Log("idle");
+        previousPoints.Clear();
+        currentState = AIState.Idle;
+        actionTimer = Random.Range(0.1f, 2.0f);
+        SwitchAnimationState(currentState);
+    }
+    private void Eat() {
+        // Debug.Log("eat");
+        previousPoints.Clear();
+        actionTimer = Random.Range(eatingTimeRange.x, eatingTimeRange.y);
+        currentState = AIState.Eating;
+        SwitchAnimationState(currentState);
+    }
+
+    private void Walk(Vector3 destination) {
+        // Debug.Log("walk");
+        agent.speed = walkingSpeed;
+        agent.SetDestination(destination);
+        currentState = AIState.Walking;
+        SwitchAnimationState(currentState);
+    }
+
+    private void Run(Vector3 destination) {
+        agent.speed = runningSpeed;
+        agent.SetDestination(destination);
+        currentState = AIState.Running;
+        SwitchAnimationState(currentState);
+    }
+
+    private void Chase() {
+        agent.speed = runningSpeed;
+        agent.SetDestination(enemy.position);
+        currentState = AIState.Chasing;
+        SwitchAnimationState(currentState);
+    }
+
+    private void FAttack() {
+        if (enemy) {
+            previousPoints.Clear();
+            // 0.3f is a small allowance so the animal doesn't stop attacking at exactly attackDistance
+            if (Vector3.Distance(transform.position, enemy.position) - 0.3f >= attackDistance) {
+                Chase();
+                isAttacking = false;
+            }
+            else {
+                SwitchAnimationState(currentState);
+                PlayerHealth playerHealth = enemy.gameObject.GetComponent<PlayerHealth>();
+                if (playerHealth && !isAttacking) {
+                    StartCoroutine(Attack(playerHealth));
+                }
+            }
+        }
+        else {
+            Idle();
+        }
+    }
+
+    private bool CheckIfStuckOnEdge() {
+        // Find the closest NavMesh edge
+        NavMeshHit hit;
+        if (NavMesh.FindClosestEdge(transform.position, out hit, NavMesh.AllAreas)) {
+            closestEdge = hit.position;
+            distanceToEdge = hit.distance;
+        }
+
+        if (distanceToEdge < 1f) {
+            if(timeStuck > 1.5f) {
+                if(previousIdlePoints.Count > 0) {
+                    reverseFlee = true;
+                    return true;
+                } 
+            }
+            else {
+                timeStuck += Time.deltaTime;
+            }
+        }
+        return false;
+    }
+
+    private void DealWithStuck() {
+        if (previousPoints.Count == 50 && CheckIfStuck()) {
+            if(previousIdlePoints.Count > 0) {
+                Vector3 destination = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
+                Walk(destination);
+            } 
+        }
+    }
+
     private Vector3 GetAveragePosition() {
         Vector3 sum = Vector3.zero;
 
@@ -389,5 +391,11 @@ public class Animal : MonoBehaviour {
         if (Vector3.Distance(transform.position, averagePosition) <= stuckDistanceThreshold) return true;
 
         return false;
+    }
+
+    private void AddPrevPosition() {
+        previousPoints.Add(transform.position);
+        if (previousPoints.Count > 50)
+            previousPoints.RemoveAt(0);
     }
 }

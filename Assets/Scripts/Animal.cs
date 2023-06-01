@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Animal : MonoBehaviour {
     public enum AnimalType { Friendly, Neutral, Aggressive}
-    public enum AIState { Idle, Walking, Eating, Running, Chasing, Attacking }
+    public enum AIState { Idle, Walking, Eating, Running, Flee, Chasing, Attacking }
     [SerializeField] private AnimalType animalType = AnimalType.Neutral;
     [SerializeField] private AIState currentState = AIState.Idle;
     [SerializeField] private int awarenessArea = 15; // How far the deer should detect the enemy
@@ -15,9 +15,11 @@ public class Animal : MonoBehaviour {
     [SerializeField] private float stuckDistanceThreshold = 0.01f; // Distance used to check if agent has moved or is stuck
 
     [Header("Neutral and Aggressive only")]
+    [SerializeField] private int damage = 10;
     [SerializeField] private float attackDistance = 5f; // Distance for agent to start attacking enemy
-    [SerializeField] private int damage;
-    [SerializeField] private float attackDelay;
+    [SerializeField] private float attackDelay = 1.5f; // Time between hits
+    [SerializeField] private float timeToStopChasing = 60f; // How long the animal should chase before it stops chasing
+    private float timeToStopChasingCurrent = 0f; // Keep track of time passed since chasing started
     private bool isAttacking = false;
 
     private SphereCollider awarenessCollider; // Trigger collider that represents the awareness area
@@ -49,10 +51,27 @@ public class Animal : MonoBehaviour {
         awarenessCollider.isTrigger = true;
         awarenessCollider.radius = awarenessArea;
 
+        GetComponent<Dummy>().onHealthChangeCallback += Hit;
+
         // Initialize the AI state
         currentState = AIState.Idle;
         actionTimer = Random.Range(0.1f, 2.0f);
         SwitchAnimationState(currentState);
+    }
+
+    private void Hit() {
+        // Set NavMesh Agent Speed
+        agent.speed = runningSpeed;
+        if (enemy) {
+            agent.SetDestination(enemy.position);
+            currentState = AIState.Chasing;
+            SwitchAnimationState(currentState);
+        }
+        else {
+            agent.destination = RandomNavSphere(transform.position, Random.Range(15, 40));
+            currentState = AIState.Running;
+            SwitchAnimationState(AIState.Running);
+        }
     }
 
     private void Update() {
@@ -216,19 +235,68 @@ public class Animal : MonoBehaviour {
                 }
             }
         }
+        else if (currentState == AIState.Flee) {
+            // Set NavMesh Agent Speed
+            agent.speed = runningSpeed;
+            
+            previousPoints.Add(transform.position);
+            if (previousPoints.Count > 50) {
+                previousPoints.RemoveAt(0);
+            }
+
+            if (previousPoints.Count == 50 && CheckIfStuck()) {
+                if(previousIdlePoints.Count > 0) {
+                    Vector3 goTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
+                    agent.SetDestination(goTo);
+                } 
+            }
+
+            currentState = AIState.Running;
+            SwitchAnimationState(AIState.Running);
+            agent.destination = RandomNavSphere(transform.position, Random.Range(5, 10));
+
+        }
         else if (currentState == AIState.Chasing) {
             // Set NavMesh Agent Speed
             agent.speed = runningSpeed;
 
             // Chase
             if (enemy) {
+                timeToStopChasingCurrent += Time.deltaTime;
+                if (timeToStopChasingCurrent >= timeToStopChasing) {
+                    timeToStopChasingCurrent = 0f;
+                    // Walk to another random destination
+                    agent.destination = RandomNavSphere(transform.position, Random.Range(5, 10));
+                    currentState = AIState.Walking;
+                    SwitchAnimationState(currentState);
+                }
                 agent.SetDestination(enemy.position);
+
+                
+                previousPoints.Add(transform.position);
+                if (previousPoints.Count > 50) {
+                    previousPoints.RemoveAt(0);
+                }
+
+                if (previousPoints.Count == 50 && CheckIfStuck()) {
+                    if(previousIdlePoints.Count > 0) {
+                        Vector3 goTo = previousIdlePoints[Random.Range(0, previousIdlePoints.Count - 1)];
+                        agent.SetDestination(goTo);
+                    } 
+                }
 
                 if (agent.remainingDistance <= attackDistance) {
                     agent.SetDestination(agent.transform.position);
                     currentState = AIState.Attacking;
                     SwitchAnimationState(currentState);
                 }
+            }
+            else {
+                timeToStopChasingCurrent = 0f;
+                // Walk to another random destination
+                agent.destination = RandomNavSphere(transform.position, Random.Range(5, 10));
+                currentState = AIState.Walking;
+                SwitchAnimationState(currentState);
             }
         }
         else if (currentState == AIState.Attacking) {

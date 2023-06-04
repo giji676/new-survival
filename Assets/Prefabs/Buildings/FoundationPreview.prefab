@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 6814008076395796904}
   - component: {fileID: 5221874676148994393}
   - component: {fileID: 5736645241053202248}
-  - component: {fileID: -8087285212916592782}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: FoundationPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,19 +98,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: 9168b7b165c89464887cabcdd91242ce, type: 2}
   rayDistance: 5
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 1271
---- !u!65 &-8087285212916592782
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6409179101545019420}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

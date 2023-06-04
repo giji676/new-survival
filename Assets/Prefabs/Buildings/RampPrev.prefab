@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1003100237112167939}
   - component: {fileID: 6057524529686673277}
-  - component: {fileID: -7337519448580221620}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: RampPrev
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,22 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: 01643bbbfae8e0e44b7dfc2a1b170703, type: 2}
   rayDistance: 5
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 1271
---- !u!65 &-7337519448580221620
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556516438852224289}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6423216005745882994
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +58,7 @@ GameObject:
   - component: {fileID: 3780274774050727066}
   - component: {fileID: 7284325622859250723}
   - component: {fileID: 3025319943947059519}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

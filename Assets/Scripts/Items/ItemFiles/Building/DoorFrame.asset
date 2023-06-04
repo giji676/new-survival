@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4880eccee8de747858e8c1cd05d70d, type: 3}
+  m_Name: DoorFrame
+  m_EditorClassIdentifier: 
+  name: Door Frame
+  description: A door frame. Allows doors to be placed inside.
+  icon: {fileID: 21300000, guid: 8d98ab6168c3e91439339f1908b8fe97, type: 3}
+  stackable: 1
+  maxStack: 32
+  isCraftable: 1
+  craftingRecipe:
+  - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
+    currentStack: 4
+  returnAmount: 1
+  craftTime: 10
+  prefab: {fileID: 6409179101545019420, guid: 3469f41fe932fcd4996c36a44b91246f, type: 3}
+  health: 0
+  isFoundation: 0
+  colliderLayerMask:
+    serializedVersion: 2
+    m_Bits: 768
+  buildingPrefab: {fileID: 6409179101545019420, guid: 9e2068025cc66074f8edd66f2ec24faa, type: 3}
+  itemPrefab: {fileID: 0}

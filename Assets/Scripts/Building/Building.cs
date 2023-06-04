@@ -34,6 +34,9 @@ public class Building : MonoBehaviour {
             transform.position = hit.point;
             targetCollider = null;
         }
+        else {
+            transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
+        }
 
         if (Input.GetMouseButtonDown(0)) {
             if (targetCollider == null && !buildingData.isFoundation) return;

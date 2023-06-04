@@ -28,7 +28,7 @@ MonoBehaviour:
   isFoundation: 1
   colliderLayerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1280
   snapPointsLayerMask:
     serializedVersion: 2
     m_Bits: 1536

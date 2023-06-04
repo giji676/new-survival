@@ -7,8 +7,6 @@ public class Building : MonoBehaviour {
     public float rayDistance = 5f;
     private Camera cam;
     private Collider targetCollider;
-    public LayerMask ignoreLayer;
-    private bool buildingBlocked;
 
     
     private void Start() {
@@ -17,18 +15,6 @@ public class Building : MonoBehaviour {
 
     private void Update() {
         Build();
-    }
-
-    private void OnTriggerStay(Collider collider) {
-        if (((1 << collider.gameObject.layer) & buildingData.snapPointsLayerMask.value) != 0) {
-            buildingBlocked = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider collider) {
-        if (((1 << collider.gameObject.layer) & buildingData.snapPointsLayerMask.value) != 0) {
-            buildingBlocked = false;
-        }
     }
 
     private void Build() {
@@ -43,7 +29,7 @@ public class Building : MonoBehaviour {
             transform.position = snapPoint.point.position;
             transform.rotation = Quaternion.Euler(0, snapPoint.point.eulerAngles.y, 0);
         }
-        else if (Physics.Raycast(ray, out hit, rayDistance, ignoreLayer)) {
+        else if (Physics.Raycast(ray, out hit, rayDistance)) {
             transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
             transform.position = hit.point;
             targetCollider = null;
@@ -51,7 +37,6 @@ public class Building : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0)) {
             if (targetCollider == null && !buildingData.isFoundation) return;
-            if (buildingBlocked) return;
 
             Instantiate(buildingData.buildingPrefab, transform.position, transform.rotation);
             Hotbar hotbar = GetComponentInParent<Hotbar>();

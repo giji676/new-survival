@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd4880eccee8de747858e8c1cd05d70d, type: 3}
-  m_Name: DoorFrame
+  m_Name: Door
   m_EditorClassIdentifier: 
-  name: Door Frame
-  description: A door frame. Allows doors to be placed inside.
-  icon: {fileID: 21300000, guid: 8d98ab6168c3e91439339f1908b8fe97, type: 3}
-  stackable: 1
-  maxStack: 32
+  name: Door
+  description: A door
+  icon: {fileID: 21300000, guid: 874d8401331ede14087e8d8d486ddda6, type: 3}
+  stackable: 0
+  maxStack: 1
   isCraftable: 1
   craftingRecipe:
   - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
-    currentStack: 4
+    currentStack: 2
   returnAmount: 1
-  craftTime: 10
-  prefab: {fileID: 6409179101545019420, guid: 3469f41fe932fcd4996c36a44b91246f, type: 3}
+  craftTime: 15
+  prefab: {fileID: 6409179101545019420, guid: 74d6665ece001d04ba50e95c03578066, type: 3}
   health: 0
   isFoundation: 0
   colliderLayerMask:
     serializedVersion: 2
-    m_Bits: 768
-  buildingPrefab: {fileID: 6409179101545019420, guid: 9e2068025cc66074f8edd66f2ec24faa, type: 3}
-  itemPrefab: {fileID: 3024824328125654119, guid: 2eab582ad213fe44f9f44299d8f6bd04, type: 3}
+    m_Bits: 2304
+  buildingPrefab: {fileID: 6409179101545019420, guid: 60db0c163be51e842b16dfebc10f657b, type: 3}
+  itemPrefab: {fileID: 0}

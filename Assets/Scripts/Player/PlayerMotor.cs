@@ -64,7 +64,7 @@ public class PlayerMotor : MonoBehaviour {
 
     public void Jump() {
         if (controller.isGrounded) {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -gravity);
         }
     }
 }

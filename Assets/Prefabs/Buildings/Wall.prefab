@@ -92,10 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 220942217097075957}
-  buildingLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  parent: {fileID: 6409179101545019420}
 --- !u!1 &1015230660442801853
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,10 +213,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 1272480275394629781}
-  buildingLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  parent: {fileID: 6409179101545019420}
 --- !u!1 &4193506761997735565
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +272,7 @@ Transform:
   m_GameObject: {fileID: 6409179101545019420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 0.2}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3330115128843927113}
@@ -445,7 +437,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 7959045459677791908}
-  buildingLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  parent: {fileID: 6409179101545019420}

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Animal
+  - door
+  - frame
+  - wall
   layers:
   - Default
   - TransparentFX

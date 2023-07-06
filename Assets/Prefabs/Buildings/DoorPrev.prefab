@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 2294833492660120369}
   - component: {fileID: 362079716106907337}
   - component: {fileID: 178508638879786676}
-  - component: {fileID: 9122517051316982416}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497368267852418987}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.125, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9122517051316982416
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1497368267852418987}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6409179101545019420
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72190046700411375}
   - component: {fileID: -2504218596153819243}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: DoorPrev
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 6409179101545019420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 0.2}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 0.35}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2294833492660120369}

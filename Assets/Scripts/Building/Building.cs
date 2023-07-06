@@ -23,6 +23,7 @@ public class Building : MonoBehaviour {
         if (Physics.Raycast(ray, out hit, rayDistance, buildingData.colliderLayerMask)) {
             targetCollider = hit.collider;
             if (targetCollider.GetComponent<SnapPoint>() == null) return;
+            // Debug.Log(hit.transform.tag);
         
             SnapPoint snapPoint = targetCollider.GetComponent<SnapPoint>();
 

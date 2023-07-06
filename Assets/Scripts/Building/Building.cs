@@ -22,10 +22,10 @@ public class Building : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance, buildingData.colliderLayerMask)) {
             targetCollider = hit.collider;
-            if (targetCollider.GetComponent<SnapPoint>() == null) return;
-            // Debug.Log(hit.transform.tag);
-        
+            if (!targetCollider.GetComponent<SnapPoint>()) return;
             SnapPoint snapPoint = targetCollider.GetComponent<SnapPoint>();
+            if (snapPoint.buildingTag != buildingData.targetTag) return;
+            targetCollider = hit.collider;
 
             transform.position = snapPoint.point.position;
             transform.rotation = Quaternion.Euler(0, snapPoint.point.eulerAngles.y, 0);

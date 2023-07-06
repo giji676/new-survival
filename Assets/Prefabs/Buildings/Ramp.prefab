@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4808186159860411384}
   - component: {fileID: 8991330618809278166}
   - component: {fileID: 8889502261884978300}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1003100237112167939}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 872515552197905317}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SnapPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7891102403778525386}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6653385820797476861}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SnapPoint1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 7040383698503757433}
   - component: {fileID: 6058551822465010359}
   - component: {fileID: 9170422589679195175}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7960915353039186763}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 7284325622859250723}
   - component: {fileID: 3025319943947059519}
   - component: {fileID: 7310936315994736810}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1381156135786174475}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SnapPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 5101110668097538084}
   - component: {fileID: 2170922256937876842}
   - component: {fileID: 5477824499011153519}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

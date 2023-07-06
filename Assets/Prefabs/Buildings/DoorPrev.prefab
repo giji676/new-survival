@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 72190046700411375}
   - component: {fileID: -2504218596153819243}
-  - component: {fileID: 4313652052759480929}
   m_Layer: 0
   m_Name: DoorPrev
   m_TagString: Untagged
@@ -124,23 +123,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6409179101545019420}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ded48a80df03ff64689c3cf682de4908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingData: {fileID: 11400000, guid: 4115cc84ed578a44c8e0af04bcfca80a, type: 2}
-  rayDistance: 5
---- !u!114 &4313652052759480929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6409179101545019420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee9be20cb2805fa4db4e42c5b60eb8a6, type: 3}
+  m_Script: {fileID: 11500000, guid: ded48a80df03ff64689c3cf682de4908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: 4115cc84ed578a44c8e0af04bcfca80a, type: 2}

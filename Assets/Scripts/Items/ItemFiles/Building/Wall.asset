@@ -28,9 +28,7 @@ MonoBehaviour:
   isFoundation: 0
   colliderLayerMask:
     serializedVersion: 2
-    m_Bits: 768
-  snapPointsLayerMask:
-    serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 4608
+  targetTag: 1
   buildingPrefab: {fileID: 6409179101545019420, guid: 41e947337895e0e4cb61388cc435ae40, type: 3}
   itemPrefab: {fileID: 847538965664786732, guid: 15a0800c8920a9a40a8b553e8f72d7f8, type: 3}

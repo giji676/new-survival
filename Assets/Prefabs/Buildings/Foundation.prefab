@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6898050260997701122}
   - component: {fileID: 7019996409803137829}
   - component: {fileID: 4252496689621415908}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Collider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 220942217097075957}
+  buildingTag: 0
 --- !u!1 &1261656522078069031
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 2854978712508284209}
+  buildingTag: 1
 --- !u!1 &2290085868504588601
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 7955162382765514945}
+  buildingTag: 1
 --- !u!1 &3460783672247336598
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 7365760285850457114}
+  buildingTag: 1
 --- !u!1 &3792661098064915183
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +511,7 @@ GameObject:
   - component: {fileID: 2466599429456087762}
   - component: {fileID: 7928382489339680675}
   - component: {fileID: 6538645362423599375}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Collider4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,6 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 8052516756789375017}
+  buildingTag: 0
 --- !u!1 &4061838749121511220
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +571,7 @@ GameObject:
   - component: {fileID: 7545109003449229645}
   - component: {fileID: 8810539805965199206}
   - component: {fileID: 3560726230182136269}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Collider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -614,6 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 4469091749718158189}
+  buildingTag: 0
 --- !u!1 &4467751832617693775
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +724,7 @@ GameObject:
   - component: {fileID: 7618784838523433114}
   - component: {fileID: 3719010767453392678}
   - component: {fileID: 1009391524340114308}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Collider3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,6 +772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 6070837087231342612}
+  buildingTag: 0
 --- !u!1 &5720157157359285485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,3 +1032,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 8377382562303006630}
+  buildingTag: 1

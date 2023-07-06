@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class SnapPoint : MonoBehaviour {
     public Transform point;
+    public BuildingTag buildingTag;
 }

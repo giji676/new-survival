@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Animal
-  - door
-  - frame
-  - wall
+  - Floor
+  - Wall
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -18,9 +18,9 @@ TagManager:
   - FPSLayer
   - Interactable
   - Building
-  - Wall
-  - Floor
-  - Door
+  - SnapCollider
+  - 
+  - 
   - 
   - 
   - 

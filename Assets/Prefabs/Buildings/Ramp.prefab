@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4808186159860411384}
   - component: {fileID: 8991330618809278166}
   - component: {fileID: 8889502261884978300}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 6653385820797476861}
+  buildingTag: 0
 --- !u!1 &556516438852224289
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +200,7 @@ GameObject:
   - component: {fileID: 7040383698503757433}
   - component: {fileID: 6058551822465010359}
   - component: {fileID: 9170422589679195175}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,6 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 1381156135786174475}
+  buildingTag: 0
 --- !u!1 &5751640958397254934
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,3 +471,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 872515552197905317}
+  buildingTag: 1

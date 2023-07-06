@@ -28,6 +28,7 @@ MonoBehaviour:
   isFoundation: 0
   colliderLayerMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 4608
+  targetTag: 1
   buildingPrefab: {fileID: 6409179101545019420, guid: 9e2068025cc66074f8edd66f2ec24faa, type: 3}
   itemPrefab: {fileID: 3024824328125654119, guid: 2eab582ad213fe44f9f44299d8f6bd04, type: 3}

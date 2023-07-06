@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1003100237112167939}
   - component: {fileID: 6057524529686673277}
+  - component: {fileID: 8571024686113364318}
   m_Layer: 0
   m_Name: RampPrev
   m_TagString: Untagged
@@ -40,9 +41,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556516438852224289}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded48a80df03ff64689c3cf682de4908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingData: {fileID: 11400000, guid: 01643bbbfae8e0e44b7dfc2a1b170703, type: 2}
+  rayDistance: 5
+--- !u!114 &8571024686113364318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556516438852224289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9be20cb2805fa4db4e42c5b60eb8a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildingData: {fileID: 11400000, guid: 01643bbbfae8e0e44b7dfc2a1b170703, type: 2}

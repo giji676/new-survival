@@ -23,7 +23,7 @@ public class PlayerInteract : MonoBehaviour {
 
     void PlayerInteractRay() {
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-        Debug.DrawRay(ray.origin, ray.direction * distance);
+        // Debug.DrawRay(ray.origin, ray.direction * distance);
         RaycastHit hitInfo;
         
         if (lastHoveredObject != null) {

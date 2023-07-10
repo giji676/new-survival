@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e259509301755174298b39b11b672d08, type: 3}
+  m_Name: Chest
+  m_EditorClassIdentifier: 
+  name: Chest
+  description: Description
+  icon: {fileID: 21300000, guid: ddf2e76e8a1f88f46ae1e42277850b48, type: 3}
+  stackable: 1
+  maxStack: 8
+  isCraftable: 1
+  craftingRecipe:
+  - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
+    currentStack: 8
+  returnAmount: 1
+  craftTime: 15
+  prefab: {fileID: 5185629735587049263, guid: 7020a6b239eee02419946d4218aaed54, type: 3}
+  health: 0
+  buildingPrefab: {fileID: 5185629735587049263, guid: eb26061828fa15f49b51722c2c057449, type: 3}
+  itemPrefab: {fileID: 516248187915748253, guid: 7f6ff4b41997194429cbcd57d7a306ef, type: 3}

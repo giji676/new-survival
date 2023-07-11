@@ -14,4 +14,9 @@ public class Item : ScriptableObject {
     public List<InventoryItem> craftingRecipe;
     public int returnAmount;
     public int craftTime;
+
+    [Header("Smelting")]
+    public bool isSmeltable = false;
+    public InventoryItem smeltedItem;
+    public int smeltTime;
 }

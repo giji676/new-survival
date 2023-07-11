@@ -77,9 +77,9 @@ public class PlayerInputs : MonoBehaviour {
     public void InventoryTrigger() {
         if (inventoryUI.activeSelf) {
             SetInventoryUnactive();
-            CrateManager crateManager = GetComponent<CrateManager>();
-            if (crateManager.crateAccessed) {
-                crateManager.SetInventoryUnactive();
+            RemoteInventoryManager remoteInventoryManager = GetComponent<RemoteInventoryManager>();
+            if (remoteInventoryManager.remoteInventoryAccessed) {
+                remoteInventoryManager.SetInventoryUnactive();
             }
         }
         else {
@@ -103,9 +103,9 @@ public class PlayerInputs : MonoBehaviour {
     public void CraftMenuTrigger() {
         if (craftMenuUI.activeSelf) {
             SetCraftMenuUnactive();
-            CrateManager crateManager = GetComponent<CrateManager>();
-            if (crateManager.crateAccessed) {
-                crateManager.SetInventoryUnactive();
+            RemoteInventoryManager remoteInventoryManager = GetComponent<RemoteInventoryManager>();
+            if (remoteInventoryManager.remoteInventoryAccessed) {
+                remoteInventoryManager.SetInventoryUnactive();
             }
         }
         else {

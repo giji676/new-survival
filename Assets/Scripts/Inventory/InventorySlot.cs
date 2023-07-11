@@ -9,13 +9,13 @@ public class InventorySlot : MonoBehaviour {
     private Inventory inventory;
     private Hotbar hotbar;
     private PlayerInventoryManager inventoryManager;
-    private CrateManager crateManager;
+    private RemoteInventoryManager remoteInventoryManager;
 
     private void Start() {
         inventory = GetComponentInParent<Inventory>();
         hotbar = GetComponentInParent<Hotbar>();
         inventoryManager = GetComponentInParent<PlayerInventoryManager>();
-        crateManager = GetComponentInParent<CrateManager>();
+        remoteInventoryManager = GetComponentInParent<RemoteInventoryManager>();
     }
     
     public void AddItem(InventoryItem newInventoryItem) {
@@ -42,7 +42,7 @@ public class InventorySlot : MonoBehaviour {
 
         InventoryItem afterTransferInventoryItem = new InventoryItem(null);
         
-        if (crateManager.crate) {
+        if (remoteInventoryManager.remoteInventory != null) {
             afterTransferInventoryItem = ToCrateTransfer();
         }
         else {
@@ -67,7 +67,7 @@ public class InventorySlot : MonoBehaviour {
         
         InventoryItem afterTransferInventoryItem = new InventoryItem(null);
 
-        if (crateManager.crate) {
+        if (remoteInventoryManager.remoteInventory != null) {
             afterTransferInventoryItem = ToCrateTransfer();
         }
         else {
@@ -88,22 +88,22 @@ public class InventorySlot : MonoBehaviour {
     }
 
     private InventoryItem ToCrateTransfer() {
-        Crate crate = crateManager.crate.GetComponent<Crate>();
-        return crate.inventoryCore.Add(inventoryItem);
+        IRemoteInventory remoteInventory = remoteInventoryManager.remoteInventory.GetRemoteInventoryComponent();
+        return remoteInventory.inventoryCore.Add(inventoryItem);
     }
 
     public void FromCrateTransfer() {
         if (inventoryItem == null || inventoryItem.item == null) return;
-        if (!crateManager.crateAccessed || crateManager.crate == null) return;
+        if (!remoteInventoryManager.remoteInventoryAccessed || remoteInventoryManager.remoteInventory == null) return;
 
-        int index = crateManager.crate.inventoryCore.GetItemIndex(inventoryItem);
-        InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(crateManager.crate.inventoryCore.inventoryItems[index]);
+        int index = remoteInventoryManager.remoteInventory.inventoryCore.GetItemIndex(inventoryItem);
+        InventoryItem afterTransferInventoryItem = inventoryManager.AddInventoryFirst(remoteInventoryManager.remoteInventory.inventoryCore.inventoryItems[index]);
         if (afterTransferInventoryItem.item == null) {
-            crateManager.crate.inventoryCore.Remove(index);
+            remoteInventoryManager.remoteInventory.inventoryCore.Remove(index);
             ClearSlot();
             return;
         }
 
-        crateManager.crate.inventoryCore.UpdateItem(afterTransferInventoryItem, index);
+        remoteInventoryManager.remoteInventory.inventoryCore.UpdateItem(afterTransferInventoryItem, index);
     }
 }

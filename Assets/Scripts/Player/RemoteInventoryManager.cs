@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrateManager : MonoBehaviour {
-    public bool crateAccessed = false;
+public class RemoteInventoryManager : MonoBehaviour {
+    public bool remoteInventoryAccessed = false;
     public GameObject inventoryUI;
     public GameObject newUI;
-    public Crate crate;
+    public IRemoteInventory remoteInventory;
 
     public void SetInventoryActive() {
         inventoryUI.SetActive(true);
@@ -15,9 +15,9 @@ public class CrateManager : MonoBehaviour {
     }
 
     public void SetInventoryUnactive() {
-        crateAccessed = false;
-        crate = null;
-        newUI.GetComponent<CrateUI>().Unsubscribe();
+        remoteInventoryAccessed = false;
+        remoteInventory = null;
+        newUI.GetComponent<RemoteInventoryUI>().Unsubscribe();
         Destroy(newUI);
         newUI = null;
     }

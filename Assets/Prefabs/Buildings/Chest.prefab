@@ -113,8 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: '[E] Crate'
-  crateInventoryUI: {fileID: 5376319427119798980, guid: e521376e5dec2c64e8166d7ac1f4c32e, type: 3}
-  inventoryCore: {fileID: 0}
+  _remoteInventoryUI: {fileID: 5376319427119798980, guid: e521376e5dec2c64e8166d7ac1f4c32e, type: 3}
+  _inventoryCore: {fileID: 0}
 --- !u!114 &5185629735260636219
 MonoBehaviour:
   m_ObjectHideFlags: 0

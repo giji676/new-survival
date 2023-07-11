@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Crate : Interactable, IRemoteInventory {
+public class Furnace : Interactable, IRemoteInventory {
     [SerializeField] private GameObject _remoteInventoryUI;
     [SerializeField] private InventoryCore _inventoryCore;
 
@@ -23,7 +23,7 @@ public class Crate : Interactable, IRemoteInventory {
 
     public void Access(GameObject interactingObject, InteractionType interactionType) {
 
-        // Custom implementation for Interact in Crate class
+        // Custom implementation for Interact in Furnace class
         RemoteInventoryManager remoteInventoryManager = interactingObject.GetComponent<RemoteInventoryManager>();
 
         if (!remoteInventoryManager) return;

@@ -13,9 +13,25 @@ MonoBehaviour:
   m_Name: PipeBlade
   m_EditorClassIdentifier: 
   name: PipeBlade
+  description: Description
   icon: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
   stackable: 0
   maxStack: 1
+  isCraftable: 1
+  craftingRecipe:
+  - item: {fileID: 11400000, guid: 29bd8b6f373f1e14ba61d65306b296a5, type: 2}
+    currentStack: 3
+  - item: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
+    currentStack: 3
+  returnAmount: 1
+  craftTime: 5
+  isSmeltable: 0
+  smeltedItem:
+    item: {fileID: 0}
+    currentStack: 0
+  smeltTime: 0
+  isFuel: 0
+  burnTime: 0
   prefab: {fileID: 4736216335251715312, guid: 0d815b394cebd4546b0d30da30ee2881, type: 3}
   damage: 60
   attackSpeed: 1

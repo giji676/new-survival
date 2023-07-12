@@ -2793,6 +2793,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a1d5b4c40a4c364eb50838f9c6b3f2b, type: 2}
   - {fileID: 11400000, guid: 9168b7b165c89464887cabcdd91242ce, type: 2}
   - {fileID: 11400000, guid: d55a8ea295b813a419571f2405bca37f, type: 2}
+  - {fileID: 11400000, guid: defb0f4192dd87e4a8f33aebe85b01af, type: 2}
   itemCarrierPrefab: {fileID: 4339066905300701161, guid: f3281076b82d47443b20e7def632d06d, type: 3}
   craftingItemPrefab: {fileID: 4339066905300701161, guid: c4274db8386ab2f4090379efcd9b48a8, type: 3}
   itemListTransform: {fileID: 949775777}

@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200584b9e32b68849906073affe6de5a, type: 3}
   m_Name: Raw Iron
   m_EditorClassIdentifier: 
-  name: New Item
+  name: Raw Iron
   description: Description
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0f5597de928ba6547895c4cdb9fa4185, type: 3}
   stackable: 1
   maxStack: 32
   isCraftable: 0
   craftingRecipe: []
   returnAmount: 0
   craftTime: 0
-  isSmeltable: 0
+  isSmeltable: 1
   smeltedItem:
-    item: {fileID: 0}
-    currentStack: 0
-  smeltTime: 0
+    item: {fileID: 11400000, guid: 29bd8b6f373f1e14ba61d65306b296a5, type: 2}
+    currentStack: 32
+  smeltTime: 5
+  isFuel: 0
+  burnTime: 0

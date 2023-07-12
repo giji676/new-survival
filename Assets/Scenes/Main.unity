@@ -8923,6 +8923,7 @@ MonoBehaviour:
   promptMessage: '[E] Furnace'
   _remoteInventoryUI: {fileID: 5376319427119798980, guid: e725d25d70f835e46ae3a2c6391b3b2d, type: 3}
   _inventoryCore: {fileID: 0}
+  fuel: {fileID: 11400000, guid: e4522b34d78ffec42863068ceb04c2e3, type: 2}
 --- !u!1001 &1170431576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15708,7 +15709,7 @@ PrefabInstance:
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: item
       value: 
-      objectReference: {fileID: 11400000, guid: 2002af09489809a4eb0ee6a64defbf77, type: 2}
+      objectReference: {fileID: 11400000, guid: abb83b78cc8ad9146a7cd4320414451d, type: 2}
     - target: {fileID: 4949735476598008321, guid: fe90fe0521c7bb94cb2aa091a82e73f1, type: 3}
       propertyPath: baseAmount
       value: 12

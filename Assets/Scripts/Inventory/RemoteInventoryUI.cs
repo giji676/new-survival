@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RemoteInventoryUI : MonoBehaviour {
-    // Crate
     private InventorySlot[] inventorySlots;
     public IRemoteInventory remoteInventory;
 
@@ -19,8 +18,8 @@ public class RemoteInventoryUI : MonoBehaviour {
         for (int i = 0; i < inventorySlots.Length; i++) {
             if (remoteInventory.inventoryCore.inventoryItems[i] != null) {
                 if (remoteInventory.inventoryCore.inventoryItems[i].item != null) {
-                inventorySlots[i].ClearSlot();
-                inventorySlots[i].AddItem(remoteInventory.inventoryCore.inventoryItems[i]);
+                    inventorySlots[i].ClearSlot();
+                    inventorySlots[i].AddItem(remoteInventory.inventoryCore.inventoryItems[i]);
                 }
                 else {
                     inventorySlots[i].ClearSlot();

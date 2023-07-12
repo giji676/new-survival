@@ -19,4 +19,8 @@ public class Item : ScriptableObject {
     public bool isSmeltable = false;
     public InventoryItem smeltedItem;
     public int smeltTime;
+
+    [Header("Fuel")]
+    public bool isFuel = false;
+    public int burnTime;
 }

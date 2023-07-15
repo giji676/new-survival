@@ -8,4 +8,5 @@ public class FurnitureBuildingData : Equipment
     public int health;
     public GameObject buildingPrefab;
     public GameObject itemPrefab;
+    public LayerMask colliderLayerMask;
 }

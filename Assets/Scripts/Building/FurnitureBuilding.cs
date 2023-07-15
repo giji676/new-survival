@@ -22,7 +22,7 @@ public class FurnitureBuilding : MonoBehaviour {
         Debug.DrawRay(ray.origin, ray.direction * rayDistance, Color.red);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, rayDistance)) {
+        if (Physics.Raycast(ray, out hit, rayDistance, buildingData.colliderLayerMask)) {
             transform.rotation = Quaternion.Euler(0, cam.transform.eulerAngles.y, 0);
             transform.position = hit.point;
         }

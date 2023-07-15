@@ -23,7 +23,17 @@ MonoBehaviour:
     currentStack: 8
   returnAmount: 1
   craftTime: 15
+  isSmeltable: 0
+  smeltedItem:
+    item: {fileID: 0}
+    currentStack: 0
+  smeltTime: 0
+  isFuel: 0
+  burnTime: 0
   prefab: {fileID: 5185629735587049263, guid: 7020a6b239eee02419946d4218aaed54, type: 3}
   health: 0
   buildingPrefab: {fileID: 5185629735587049263, guid: eb26061828fa15f49b51722c2c057449, type: 3}
   itemPrefab: {fileID: 516248187915748253, guid: 7f6ff4b41997194429cbcd57d7a306ef, type: 3}
+  colliderLayerMask:
+    serializedVersion: 2
+    m_Bits: 759

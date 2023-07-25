@@ -13,6 +13,7 @@ public class Animal : MonoBehaviour {
     [SerializeField] private float runningSpeed = 7f;
     [SerializeField] private Vector2 eatingTimeRange = new Vector2(10, 15);
     [SerializeField] private float stuckDistanceThreshold = 0.01f; // Distance used to check if agent has moved or is stuck
+    [SerializeField] private SphereCollider awarenessCollider; // Trigger collider that represents the awareness area. MUST be assigned, the parent of the collider must not be Interactable LayerMask
 
     [Header("Neutral and Aggressive only")]
     [SerializeField] private int damage = 10;
@@ -22,7 +23,6 @@ public class Animal : MonoBehaviour {
     private float timeToStopChasingCurrent = 0f; // Keep track of time passed since chasing started
     private bool isAttacking = false;
 
-    private SphereCollider awarenessCollider; // Trigger collider that represents the awareness area
     private NavMeshAgent agent;
     private Animator animator;
 
@@ -47,8 +47,6 @@ public class Animal : MonoBehaviour {
         agent.autoBraking = true;
         agent.autoRepath = true;
 
-        awarenessCollider = gameObject.AddComponent<SphereCollider>();
-        awarenessCollider.isTrigger = true;
         awarenessCollider.radius = awarenessArea;
 
         GetComponent<Dummy>().onHealthChangeCallback += Hit;
@@ -275,10 +273,7 @@ public class Animal : MonoBehaviour {
         return navHit.position;
     }
 
-    private void OnTriggerEnter(Collider other) {
-        // Make sure the Player instance has a tag "Player"
-        if (!other.CompareTag("Player")) return;
-
+    public void PlayerTrigger(Collider other) {
         enemy = other.transform;
 
         actionTimer = Random.Range(0.24f, 0.8f);

@@ -15,6 +15,7 @@ public class Dummy : Interactable {
 
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
+        Debug.Log("dummy interact");
         HandHeld handHeld = interactingObject.GetComponent<HandHeld>();
         // Debug.Log(handHeld);
         if (handHeld) TakeDamage(handHeld.damage);

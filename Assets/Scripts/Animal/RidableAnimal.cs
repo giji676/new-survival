@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class RidableAnimal : Interactable {
     [SerializeField] Transform riderMountPoint;
+    private bool mounted = false;
+    private GameObject rider;
     protected override void Interact(GameObject interactingObject, InteractionType interactionType) {
         base.Interact(interactingObject, interactionType);
 
-        Debug.Log("access");
         if (interactionType == InteractionType.Hit) {
             GetComponent<Dummy>().BaseInteract(interactingObject, interactionType);
             return;
@@ -15,13 +16,21 @@ public class RidableAnimal : Interactable {
         Mount(interactingObject);
     }
 
-    private void Start() {
-
+    private void Update() {
+        if (mounted)
+            rider.transform.position = riderMountPoint.position;
     }
 
     private void Mount(GameObject interactingObject) {
-        Debug.Log("mount");
-        GetComponent<Animal>().enabled = false;
-        interactingObject.transform.position = riderMountPoint.position;
+        if (mounted) {
+            mounted = false;
+            GetComponent<Animal>().enabled = true;
+            rider = null;
+        }
+        else {
+            mounted = true;
+            GetComponent<Animal>().enabled = false;
+            rider = interactingObject;
+        }
     }
 }

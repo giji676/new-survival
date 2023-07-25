@@ -2601,6 +2601,7 @@ MonoBehaviour:
   cam: {fileID: 963194227}
   xSens: 30
   ySens: 30
+  mountedAnimalMovement: {fileID: 0}
 --- !u!143 &229157983
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4834,11 +4835,6 @@ Transform:
   m_Father: {fileID: 84093402}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!4 &707268607 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3079934212540542596, guid: 7451ef01e53127446b9d7406220542f6, type: 3}
-  m_PrefabInstance: {fileID: 1976032907300842314}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &722777884
 GameObject:
   m_ObjectHideFlags: 0
@@ -14649,10 +14645,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1976032907300842321, guid: 7451ef01e53127446b9d7406220542f6, type: 3}
-      propertyPath: riderMountPoint
-      value: 
-      objectReference: {fileID: 707268607}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7451ef01e53127446b9d7406220542f6, type: 3}
 --- !u!4 &1976032907300842315 stripped

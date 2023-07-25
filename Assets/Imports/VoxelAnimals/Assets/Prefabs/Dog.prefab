@@ -347,6 +347,8 @@ GameObject:
   - component: {fileID: 4439547963779676270}
   - component: {fileID: 8449402504368408075}
   - component: {fileID: 5432602625723452484}
+  - component: {fileID: 1976032907300842323}
+  - component: {fileID: 1976032907300842322}
   m_Layer: 7
   m_Name: Dog
   m_TagString: Animal
@@ -426,6 +428,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useEvents: 0
   promptMessage: '[E] Mount'
+  riderMountPoint: {fileID: 3079934212540542596}
 --- !u!114 &4439547963779676270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +490,42 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!143 &1976032907300842323
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417258215064542}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1976032907300842322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417258215064542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e5701b5cb20ef4499b7b49bb4efe4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  gravity: -9.8
+  jumpHeight: 5
+  smoothInputSpeed: 0.12
+  xSens: 30
+  ySens: 30
 --- !u!1 &1451966804129338
 GameObject:
   m_ObjectHideFlags: 0

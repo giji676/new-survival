@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMotor : MonoBehaviour {
+public class MountedAnimalMovement : MonoBehaviour {
     private CharacterController controller;
-
     [Header("Player movement")]
     [SerializeField] private float speed = 5f;
     [SerializeField] private float gravity = -9.8f;
@@ -17,25 +16,17 @@ public class PlayerMotor : MonoBehaviour {
     private Vector3 playerVelocity;
     
     [Header("Camera movement")]
-    public Camera cam;
     public float xSens = 30f;
     public float ySens = 30f;
-    
     private float xRot = 0f;
-    public MountedAnimalMovement mountedAnimalMovement;
+    
 
     void Start() {
         controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     public void ProcessMove(Vector2 input) {
         // Get player input (WASD)
-        if (mountedAnimalMovement != null) {
-            mountedAnimalMovement.ProcessMove(input);
-            return;
-        }
         moveDirection = Vector3.zero;
 
         // SmoothDamp to have acceleration/deceleration
@@ -54,10 +45,7 @@ public class PlayerMotor : MonoBehaviour {
         controller.Move(playerVelocity * Time.deltaTime);
     }
     
-    public void ProcessLook(Vector2 input) {
-        if (mountedAnimalMovement != null) {
-            mountedAnimalMovement.ProcessLook(input, cam);
-        }
+    public void ProcessLook(Vector2 input, Camera cam) {
         float mouseX = input.x;
         float mouseY = input.y;
 
@@ -70,10 +58,6 @@ public class PlayerMotor : MonoBehaviour {
     }
 
     public void Jump() {
-        if (mountedAnimalMovement != null) {
-            mountedAnimalMovement.Jump();
-            return;
-        }
         if (controller.isGrounded) {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -gravity);
         }

@@ -25,12 +25,16 @@ public class RidableAnimal : Interactable {
         if (mounted) {
             mounted = false;
             GetComponent<Animal>().enabled = true;
+            PlayerMotor playerMotor = rider.GetComponent<PlayerMotor>();
+            playerMotor.mountedAnimalMovement = null;
             rider = null;
         }
         else {
             mounted = true;
             GetComponent<Animal>().enabled = false;
             rider = interactingObject;
+            PlayerMotor playerMotor = rider.GetComponent<PlayerMotor>();
+            playerMotor.mountedAnimalMovement = GetComponent<MountedAnimalMovement>();
         }
     }
 }

@@ -34,6 +34,7 @@ public class RidableAnimal : Interactable {
             GetComponent<Animal>().enabled = false;
             rider = interactingObject;
             PlayerMotor playerMotor = rider.GetComponent<PlayerMotor>();
+            playerMotor.transform.rotation = transform.rotation;
             playerMotor.mountedAnimalMovement = GetComponent<MountedAnimalMovement>();
         }
     }

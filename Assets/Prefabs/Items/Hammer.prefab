@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 572507048296710970}
   - component: {fileID: 8270737145224176648}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputs: {fileID: 0}
+  damage: 0
   data: {fileID: 11400000, guid: 4198e96a12c05134a875f7251342f4df, type: 2}
 --- !u!1001 &7926896523888819786
 PrefabInstance:
@@ -57,6 +58,10 @@ PrefabInstance:
     - target: {fileID: 1085285520790580, guid: 9f64ed5ce0216394d91f836dbefecf5d, type: 3}
       propertyPath: m_Name
       value: hammer01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085285520790580, guid: 9f64ed5ce0216394d91f836dbefecf5d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4529112889726762, guid: 9f64ed5ce0216394d91f836dbefecf5d, type: 3}
       propertyPath: m_RootOrder

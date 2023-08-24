@@ -35,8 +35,8 @@ MonoBehaviour:
   prefab: {fileID: 2541570438086396205, guid: 078f5d812cc13e1439cb2712f37894a0, type: 3}
   arrowAmmoData: {fileID: 11400000, guid: 95e59c4441c031b4c87035d5b30ec929, type: 2}
   reloadTime: 3
-  minVelocity: 50
-  maxVelocity: 200
+  minVelocity: 15
+  maxVelocity: 50
   maxPullTime: 1.5
   mask:
     serializedVersion: 2

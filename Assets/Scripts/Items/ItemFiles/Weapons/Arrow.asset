@@ -34,6 +34,8 @@ MonoBehaviour:
   burnTime: 0
   prefab: {fileID: 7225628495419861052, guid: d519342f6f4c2064191a82dd041b1d89, type: 3}
   velocity: 10
+  velocityMultiplier: 20
+  angularVelocityMultiplier: 1
   mask:
     serializedVersion: 2
     m_Bits: 128

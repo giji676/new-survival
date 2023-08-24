@@ -30,10 +30,7 @@ public class BowWeapon : HandHeld {
     private void Pull(InputAction.CallbackContext ctx) {
         if (isPulling) return;
         isPulling = true;
-        arrow = Instantiate(data.arrowAmmoData.prefab);
-        arrow.transform.SetParent(arrowParent);
-        arrow.transform.position = arrowParent.position;
-        arrow.transform.rotation = arrowParent.rotation;
+        arrow = Instantiate(data.arrowAmmoData.prefab, arrowParent);
     }
     
     private void Release(InputAction.CallbackContext ctx) {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Item : ScriptableObject {
     new public string name = "New Item";
     public string description = "Description";
+    public GameObject droppedItemPrefab = null;
     public Sprite icon = null;
     public bool stackable = true;
     public int maxStack = 32;

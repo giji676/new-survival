@@ -76,7 +76,6 @@ public class ItemCreator : EditorWindow
     private void CreateItemPickup(GameObject targetPrefab) {
         ItemPickup itemPickup = targetPrefab.AddComponent<ItemPickup>();
         itemPickup.promptMessage = $"[E] {item.name}";
-        item.droppedItemPrefab = targetPrefab;
         itemPickup.item = item;
         itemPickup.stack = 1;
 
